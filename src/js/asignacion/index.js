@@ -49,7 +49,7 @@ const ValidarAplicacion = async () => {
     }
 }
 
-// AGREGAR: Función para validar permisos después de que se carguen
+// validar permisos después de que se carguen
 const validarPermisosPostCarga = () => {
     // Esperar un momento para que se complete la carga del DOM
     setTimeout(() => {
@@ -59,7 +59,7 @@ const validarPermisosPostCarga = () => {
     }, 100);
 }
 
-// Nueva función para cargar permisos por aplicación - MODIFICADA
+// funcion para cargar permisos por aplicación
 const cargarPermisosPorAplicacion = async (aplicacionId) => {
     try {
         // Mostrar loading en el select de permisos
@@ -87,7 +87,7 @@ const cargarPermisosPorAplicacion = async (aplicacionId) => {
                 });
                 asig_permisos.disabled = false;
                 
-                // NUEVO: Validar permisos después de cargar si ya había uno seleccionado
+                // validar permisos después de cargar si ya había uno seleccionado
                 validarPermisosPostCarga();
                 
             } else {
@@ -178,7 +178,7 @@ const ValidarMotivo = () => {
     }
 }
 
-// Validación completa del formulario CORREGIDA - Con más depuración
+// validacion completa del formulario 
 const ValidarFormularioCompleto = () => {
     let esValido = true;
     
@@ -189,7 +189,6 @@ const ValidarFormularioCompleto = () => {
         esValido = false;
     }
     
-    // NO validar aplicación aquí porque ya se validó cuando cambió
     // Solo verificar que tenga valor
     if (asig_aplicacion.value.trim() === '') {
         console.log('Aplicación vacía');
@@ -330,12 +329,12 @@ const BuscarAsignaciones = async (mostrarMensaje = false) => {
     }
 }
 
-// Función GuardarAsignacion CORREGIDA - Con depuración
+// Función GuardarAsignacion 
 const GuardarAsignacion = async (event) => {
     event.preventDefault();
     BtnGuardar.disabled = true;
 
-    // DEPURACIÓN: Mostrar valores actuales
+    //Mostrar valores actuales
     console.log('Valores del formulario antes de validar:');
     console.log('Usuario:', asig_usuario.value);
     console.log('Aplicación:', asig_aplicacion.value);
@@ -423,7 +422,7 @@ const GuardarAsignacion = async (event) => {
     BtnGuardar.disabled = false;
 }
 
-// Función ModificarAsignacion CORREGIDA - Sin async en ValidarFormularioCompleto
+// Función ModificarAsignacion
 const ModificarAsignacion = async (event) => {
     event.preventDefault();
     BtnModificar.disabled = true;
@@ -631,7 +630,6 @@ const FinPermiso = async (e) => {
     }
 }
 
-// Event Listeners
 BuscarAsignaciones(false);
 FormAsignaciones.addEventListener('submit', GuardarAsignacion);
 BtnLimpiar.addEventListener('click', limpiarTodo);

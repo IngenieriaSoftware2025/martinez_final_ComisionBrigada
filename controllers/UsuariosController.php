@@ -318,7 +318,7 @@ class UsuariosController extends ActiveRecord
             return;
         }
 
-        // Verificar DPI único (excluyendo el usuario actual)
+        // Verificar DPI único 
         $usuarioExistenteDpi = Usuarios::where('us_dpi', $_POST['us_dpi']);
         if (!empty($usuarioExistenteDpi) && $usuarioExistenteDpi[0]['us_id'] != $id) {
             http_response_code(400);
@@ -329,7 +329,7 @@ class UsuariosController extends ActiveRecord
             return;
         }
 
-        // Verificar correo único (excluyendo el usuario actual)
+        // Verificar correo único 
         $usuarioExistenteCorreo = Usuarios::where('us_correo', $_POST['us_correo']);
         if (!empty($usuarioExistenteCorreo) && $usuarioExistenteCorreo[0]['us_id'] != $id) {
             http_response_code(400);

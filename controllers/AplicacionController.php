@@ -234,7 +234,7 @@ class AplicacionController extends ActiveRecord
             return;
         }
 
-        // Verificar que no exista otra aplicación con el mismo nombre corto (excluyendo la actual)
+        // Verificar que no exista otra aplicación con el mismo nombre corto
         $sql = "SELECT ap_id FROM amb_aplicacion WHERE ap_nombre_ct = '{$_POST['ap_nombre_ct']}' AND ap_id != $id AND ap_situacion = 1";
         $existeNombreCorto = self::fetchArray($sql);
         if (!empty($existeNombreCorto)) {

@@ -5,15 +5,13 @@ use Controllers\AplicacionController;
 use MVC\Router;
 use Controllers\AppController;
 use Controllers\AsignacionController;
-use Controllers\ClienteController;
 use Controllers\ComisionController;
 use Controllers\LoginController;
-use Controllers\MarcaCelController;
 use Controllers\PermisoController;
-use Controllers\RegistroController;
-use Controllers\InventarioController;
 use Controllers\PersonalController;
 use Controllers\UsuariosController;
+use Controllers\EstadisticaController;
+use Controllers\MapasController;
 
 $router = new Router();
 $router->setBaseURL('/' . $_ENV['APP_NAME']);
@@ -24,7 +22,7 @@ $router->setBaseURL('/' . $_ENV['APP_NAME']);
 $router->get('/', [LoginController::class, 'index']);
 $router->post('/API/login', [LoginController::class, 'login']);
 $router->get('/inicio', [LoginController::class,'inicio']);
-$router->get('/logout', [LoginController::class,'logout']); // ESTA FALTABA
+$router->get('/logout', [LoginController::class,'logout']); 
 
 
 //url's registrar usuario
@@ -83,6 +81,18 @@ $router->post('/comision/guardarAPI', [ComisionController::class, 'guardarAPI'])
 $router->get('/comision/personalDisponibleAPI', [ComisionController::class, 'personalDisponibleAPI']);
 $router->get('/comision/comisionesActivasAPI', [ComisionController::class, 'comisionesActivasAPI']);
 
+
+
+// url's de estadisticas
+$router->get('/estadistica', [EstadisticaController::class, 'renderizarPagina']);
+$router->get('/estadistica/buscarComisionesPorFechaAPI', [EstadisticaController::class, 'buscarComisionesPorFechaAPI']);
+$router->get('/estadistica/buscarComisionesInformaticaAPI', [EstadisticaController::class, 'buscarComisionesInformaticaAPI']);
+$router->get('/estadistica/buscarComisionesTransmisionesAPI', [EstadisticaController::class, 'buscarComisionesTransmisionesAPI']);
+
+
+
+//url's de mapas
+$router->get('/mapas', [MapasController::class, 'renderizarPagina']);
 
 
 // Comprueba y valida las rutas, que existan y les asigna las funciones del Controlador

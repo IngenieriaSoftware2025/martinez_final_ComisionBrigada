@@ -67,8 +67,8 @@ class ComisionController extends ActiveRecord
         $_POST['com_usuario'] = filter_var($_POST['com_usuario'], FILTER_SANITIZE_NUMBER_INT);
         $_POST['com_destino'] = htmlspecialchars(trim($_POST['com_destino']));
         $_POST['com_descripcion'] = htmlspecialchars(trim($_POST['com_descripcion']));
-        $_POST['com_fech_inicio'] = htmlspecialchars(trim($_POST['com_fech_inicio']));
-        $_POST['com_fech_fin'] = htmlspecialchars(trim($_POST['com_fech_fin']));
+        $_POST['com_fech_inicio'] = date('Y-m-d H:i', strtotime($_POST['com_fech_inicio']));
+        $_POST['com_fech_fin'] = date('Y-m-d H:i', strtotime($_POST['com_fech_fin']));
 
         // Validar longitudes
         if (strlen($_POST['com_destino']) > 250) {
@@ -89,7 +89,7 @@ class ComisionController extends ActiveRecord
             return;
         }
 
-        // Validar fechas lógicas
+        // Validar fechas 
         if (strtotime($_POST['com_fech_fin']) <= strtotime($_POST['com_fech_inicio'])) {
             http_response_code(400);
             echo json_encode([
@@ -99,7 +99,7 @@ class ComisionController extends ActiveRecord
             return;
         }
 
-        // VALIDACIÓN PRINCIPAL: Verificar que el usuario no tenga una comisión activa
+        // rificar que el usuario no tenga una comisión activa
         $comisionActiva = Comision::verificarUsuarioConComisionActiva($_POST['com_usuario']);
         if ($comisionActiva) {
             http_response_code(400);
@@ -223,7 +223,7 @@ class ComisionController extends ActiveRecord
         $_POST['com_fech_inicio'] = htmlspecialchars(trim($_POST['com_fech_inicio']));
         $_POST['com_fech_fin'] = htmlspecialchars(trim($_POST['com_fech_fin']));
 
-        // Validar fechas lógicas
+        // Validar fechas 
         if (strtotime($_POST['com_fech_fin']) <= strtotime($_POST['com_fech_inicio'])) {
             http_response_code(400);
             echo json_encode([

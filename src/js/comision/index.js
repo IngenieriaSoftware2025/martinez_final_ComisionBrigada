@@ -66,6 +66,44 @@ const ValidarDescripcion = () => {
     }
 }
 
+const ValidarFechaInicio = () => {
+    const fechaInicio = com_fech_inicio.value;
+    const fechaActual = new Date();
+    const fechaSeleccionada = new Date(fechaInicio);
+    
+    if (!fechaInicio) {
+        com_fech_inicio.classList.remove('is-valid');
+        com_fech_inicio.classList.add('is-invalid');
+        return false;
+    } else if (fechaSeleccionada < fechaActual) {
+        com_fech_inicio.classList.remove('is-valid');
+        com_fech_inicio.classList.add('is-invalid');
+        return false;
+    } else {
+        com_fech_inicio.classList.remove('is-invalid');
+        com_fech_inicio.classList.add('is-valid');
+        return true;
+    }
+}
+
+const ValidarFechaFin = () => {
+    const fechaInicio = com_fech_inicio.value;
+    const fechaFin = com_fech_fin.value;
+    
+    if (!fechaFin) {
+        com_fech_fin.classList.remove('is-valid');
+        com_fech_fin.classList.add('is-invalid');
+        return false;
+    } else if (fechaInicio && new Date(fechaFin) <= new Date(fechaInicio)) {
+        com_fech_fin.classList.remove('is-valid');
+        com_fech_fin.classList.add('is-invalid');
+        return false;
+    } else {
+        com_fech_fin.classList.remove('is-invalid');
+        com_fech_fin.classList.add('is-valid');
+        return true;
+    }
+}
 
 // Validación completa del formulario
 const ValidarFormularioCompleto = () => {
@@ -74,8 +112,8 @@ const ValidarFormularioCompleto = () => {
     if (!ValidarUsuario()) esValido = false;
     if (!ValidarDestino()) esValido = false;
     if (!ValidarDescripcion()) esValido = false;
-    //if (!ValidarFechaInicio()) esValido = false;
-    //if (!ValidarFechaFin()) esValido = false;
+    if (!ValidarFechaInicio()) esValido = false;
+    if (!ValidarFechaFin()) esValido = false;
     
     return esValido;
 }
@@ -129,15 +167,15 @@ const datatable = new DataTable('#TableComisiones', {
             data: null,
             render: (data, type, row) => {
                 const ahora = new Date();
-                const inicio = new Date(row.com_fecha_inicio);
-                const fin = new Date(row.com_fecha_fin);
+                const inicio = new Date(row.com_fech_inicio);
+                const fin = new Date(row.com_fech_fin);
                 
                 if (ahora < inicio) {
-                    return '<span class="badge bg-warning">Pendiente</span>';
+                    return 'Pendiente';
                 } else if (ahora >= inicio && ahora <= fin) {
-                    return '<span class="badge bg-success">Activa</span>';
+                    return 'Activa';
                 } else {
-                    return '<span class="badge bg-secondary">Finalizada</span>';
+                    return 'Finalizada';
                 }
             }
         },
@@ -397,7 +435,7 @@ const llenarFormulario = (event) => {
     document.getElementById('com_fech_inicio').value = fechaInicio.toISOString().slice(0, 16);
     document.getElementById('com_fech_fin').value = fechaFin.toISOString().slice(0, 16);
     
-    // Seleccionar el usuario directamente (ya está cargado en el select)
+    // Seleccionar el usuario directamente
     document.getElementById('com_usuario').value = datos.usuario;
     
     BtnGuardar.classList.add('d-none');
@@ -461,7 +499,7 @@ const EliminarComision = async (e) => {
     }
 }
 
-// Event Listeners
+
 BuscarComisiones(false);
 FormComision.addEventListener('submit', GuardarComision);
 BtnLimpiar.addEventListener('click', limpiarTodo);

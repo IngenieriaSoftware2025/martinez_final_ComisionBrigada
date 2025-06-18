@@ -75,7 +75,6 @@ const ValidarUnidad = () => {
     
     // Para select, validar que se haya seleccionado una opción
     if (unidad === '') {
-        // Unidad es opcional, así que no es error si está vacía
         perso_unidad.classList.remove('is-invalid', 'is-valid');
         return true;
     } else {
@@ -202,13 +201,12 @@ const BuscarPersonal = async (mostrarMensaje = false) => {
     }
 }
 
-// Función GuardarPersonal actualizada
+// Función GuardarPersonal 
 const GuardarPersonal = async (event) => {
     event.preventDefault();
     BtnGuardar.disabled = true;
 
     // Verificar que todos los campos obligatorios estén llenos
-    // Nota: perso_unidad es opcional, así que no se incluye en la validación obligatoria
     if (!perso_grado.value || !perso_nombre.value || !perso_apellidos.value) {
         Swal.fire({
             position: "center",
@@ -278,7 +276,7 @@ const GuardarPersonal = async (event) => {
     BtnGuardar.disabled = false;
 }
 
-// Función ModificarPersonal actualizada
+// Función ModificarPersonal
 const ModificarPersonal = async (event) => {
     event.preventDefault();
     BtnModificar.disabled = true;
@@ -423,7 +421,7 @@ const EliminarPersonal = async (e) => {
     }
 }
 
-// Event Listeners
+
 BuscarPersonal(false);
 FormPersonal.addEventListener('submit', GuardarPersonal);
 BtnLimpiar.addEventListener('click', limpiarTodo);

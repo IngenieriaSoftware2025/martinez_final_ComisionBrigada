@@ -222,7 +222,7 @@ class PermisoController extends ActiveRecord
             return;
         }
 
-        // Verificar que no exista otro permiso con la misma clave en la misma aplicación (excluyendo el actual)
+        // Verificar que no exista otro permiso con la misma clave en la misma aplicación
         $sql = "SELECT per_id FROM amb_permisos WHERE per_clave_permiso = '{$_POST['per_clave_permiso']}' AND per_aplicacion = {$_POST['per_aplicacion']} AND per_id != $id AND per_situacion = 1";
         $existeClave = self::fetchArray($sql);
         if (!empty($existeClave)) {

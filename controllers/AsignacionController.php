@@ -220,7 +220,7 @@ class AsignacionController extends ActiveRecord
             return;
         }
 
-        // Verificar que no exista otra asignación igual (excluyendo la actual)
+        // Verificar que no exista otra asignación igual
         $sql = "SELECT asig_id FROM amb_asig_permisos WHERE asig_usuario = {$_POST['asig_usuario']} AND asig_aplicacion = {$_POST['asig_aplicacion']} AND asig_permisos = {$_POST['asig_permisos']} AND asig_id != $id AND asig_situacion = '1'";
         $existeAsignacion = self::fetchArray($sql);
         if (!empty($existeAsignacion)) {

@@ -173,7 +173,7 @@ const ValidarContrasenia = () => {
     } else {
         us_contrasenia.classList.remove('is-invalid');
         us_contrasenia.classList.add('is-valid');
-        ValidarConfirmacionContrasenia(); // Revalidar confirmación
+        ValidarConfirmacionContrasenia(); 
         return true;
     }
 }
@@ -216,13 +216,11 @@ const ValidarFormularioCompleto = () => {
     if (!ValidarTelefono()) esValido = false;
     if (!ValidarDPI()) esValido = false;
     
-    // Solo validar contraseñas si están visibles (modo crear)
+    // Solo validar contraseñas si están visibles
     if (!document.getElementById('grupo_password').classList.contains('d-none')) {
         if (!ValidarContrasenia()) esValido = false;
         if (!ValidarConfirmacionContrasenia()) esValido = false;
     }
-    
-    // Sin validación de rol
     
     return esValido;
 }
@@ -415,7 +413,7 @@ const ModificarUsuario = async (event) => {
     event.preventDefault();
     BtnModificar.disabled = true;
 
-    // Validar formulario (sin contraseñas en modo edición)
+    // Validar formulario 
     if (!ValidarFormularioCompleto()) {
         Swal.fire({
             position: "center",
@@ -481,7 +479,7 @@ const llenarFormulario = (event) => {
     document.getElementById('us_correo').value = datos.correo;
     document.getElementById('us_direccion').value = datos.direccion;
     
-    // Ocultar campos de contraseña y foto en modo edición
+    // Ocultar campos de contraseña y foto 
     document.getElementById('grupo_password').classList.add('d-none');
     document.getElementById('grupo_password_confirm').classList.add('d-none');
     document.getElementById('grupo_foto').classList.add('d-none');
@@ -547,7 +545,6 @@ const EliminarUsuarios = async (e) => {
     }
 }
 
-// Event Listeners
 BuscarUsuarios(false);
 FormUsuarios.addEventListener('submit', GuardarUsuario);
 BtnLimpiar.addEventListener('click', limpiarTodo);

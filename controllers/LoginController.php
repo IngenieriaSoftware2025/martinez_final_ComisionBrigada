@@ -69,7 +69,7 @@ class LoginController extends ActiveRecord
 {
     session_start();
     session_destroy();
-    header('Location: /proyecto_uno/'); // CON BASE URL
+    header('Location: /martinez_final_ComisionBrigada/'); // CON BASE URL
     exit;
 }
 

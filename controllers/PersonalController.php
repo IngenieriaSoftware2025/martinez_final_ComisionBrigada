@@ -233,7 +233,7 @@ class PersonalController extends ActiveRecord
             return;
         }
 
-        // Verificar que no exista otro personal igual (excluyendo el actual)
+        // Verificar que no exista otro personal igual
         $sql = "SELECT perso_id FROM amb_personal WHERE perso_nombre = '{$_POST['perso_nombre']}' AND perso_apellidos = '{$_POST['perso_apellidos']}' AND perso_grado = '{$_POST['perso_grado']}' AND perso_id != $id AND perso_situacion = '1'";
         $existePersonal = self::fetchArray($sql);
         
