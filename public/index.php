@@ -6,6 +6,7 @@ use MVC\Router;
 use Controllers\AppController;
 use Controllers\AsignacionController;
 use Controllers\ClienteController;
+use Controllers\ComisionController;
 use Controllers\LoginController;
 use Controllers\MarcaCelController;
 use Controllers\PermisoController;
@@ -70,6 +71,17 @@ $router->post('/personal/modificarAPI', [PersonalController::class, 'modificarAP
 $router->get('/personal/buscarAPI', [PersonalController::class, 'buscarAPI']);
 $router->get('/personal/eliminarAPI', [PersonalController::class, 'eliminarAPI']);
 $router->post('/personal/guardarAPI', [PersonalController::class, 'guardarAPI']);
+
+
+
+//url's registrar comision
+$router->get('/comision', [ComisionController::class, 'index']);
+$router->post('/comision/modificarAPI', [ComisionController::class, 'modificarAPI']);
+$router->get('/comision/buscarAPI', [ComisionController::class, 'buscarAPI']);
+$router->get('/comision/eliminarAPI', [ComisionController::class, 'eliminarAPI']);
+$router->post('/comision/guardarAPI', [ComisionController::class, 'guardarAPI']);
+$router->get('/comision/personalDisponibleAPI', [ComisionController::class, 'personalDisponibleAPI']);
+$router->get('/comision/comisionesActivasAPI', [ComisionController::class, 'comisionesActivasAPI']);
 
 
 

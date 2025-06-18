@@ -52,7 +52,7 @@ class PersonalController extends ActiveRecord
         $_POST['perso_grado'] = htmlspecialchars(trim($_POST['perso_grado']));
         $_POST['perso_nombre'] = htmlspecialchars(trim($_POST['perso_nombre']));
         $_POST['perso_apellidos'] = htmlspecialchars(trim($_POST['perso_apellidos']));
-        $_POST['perso_unidad'] = htmlspecialchars(trim($_POST['perso_unidad'] ?? ''));
+        $_POST['perso_unidad'] = isset($_POST['perso_unidad']) && $_POST['perso_unidad'] !== '' ? htmlspecialchars(trim($_POST['perso_unidad'])) : '';
 
         // Validar longitudes
         if (strlen($_POST['perso_grado']) > 50) {
@@ -112,7 +112,7 @@ class PersonalController extends ActiveRecord
                 'perso_grado' => ucwords(strtolower($_POST['perso_grado'])),
                 'perso_nombre' => ucwords(strtolower($_POST['perso_nombre'])),
                 'perso_apellidos' => ucwords(strtolower($_POST['perso_apellidos'])),
-                'perso_unidad' => ucwords(strtolower($_POST['perso_unidad'])),
+                'perso_unidad' => $_POST['perso_unidad'] !== '' ? ucwords(strtolower($_POST['perso_unidad'])) : '',
                 'perso_situacion' => '1'
             ]);
 

@@ -39,7 +39,7 @@
           </a>
           <ul class="dropdown-menu">
             <li><a class="dropdown-item" href="/martinez_final_ComisionBrigada/personal">PERSONAL</a></li>
-            <li><a class="dropdown-item" href="/martinez_final_ComisionBrigada/comisiones">COMISIONES</a></li>
+            <li><a class="dropdown-item" href="/martinez_final_ComisionBrigada/comision">COMISIONES</a></li>
             <li><a class="dropdown-item" href="/martinez_final_ComisionBrigada/estadisticas">ESTADISTICAS</a></li>
             <li><a class="dropdown-item" href="/martinez_final_ComisionBrigada/mapa">MAPA</a></li>
           </ul>

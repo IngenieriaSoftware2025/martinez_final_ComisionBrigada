@@ -4,44 +4,56 @@
             <div class="card-body p-3">
                 <div class="row mb-3">
                     <h3 class="text-center mb-2">BIENVENIDO</h3>
-                    <h4 class="text-center mb-2 text-primary">Gestión de Personal</h4>
+                    <h4 class="text-center mb-2 text-primary">Gestión de Comisiones</h4>
                 </div>
 
                 <div class="row justify-content-center p-5 shadow-lg">
 
-                    <form id="FormPersonal">
-                        <input type="hidden" id="perso_id" name="perso_id">
+                    <form id="FormComision">
+                        <input type="hidden" id="com_id" name="com_id">
 
                         <div class="row mb-3 justify-content-center">
                             <div class="col-lg-6">
-                                <label for="perso_grado" class="form-label">Grado
+                                <label for="com_usuario" class="form-label">Personal
                                 </label>
-                                <input type="text" class="form-control" id="perso_grado" name="perso_grado" 
-                                       placeholder="Ingrese el grado"  required>
+                                <select class="form-select" id="com_usuario" name="com_usuario" required>
+                                    <option value="">Seleccione el personal...</option>
+                                    <?php foreach ($personal as $persona): ?>
+                                        <?php if ($persona->perso_situacion == 1): ?>
+                                            <option value="<?= $persona->perso_id ?>">
+                                                <?= $persona->perso_grado . ' ' . $persona->perso_nombre . ' ' . $persona->perso_apellidos ?> - <?= $persona->perso_unidad ?: 'Sin unidad' ?>
+                                            </option>
+                                        <?php endif; ?>
+                                    <?php endforeach; ?>
+                                </select>
                             </div>
                             <div class="col-lg-6">
-                                <label for="perso_nombre" class="form-label">Nombre
+                                <label for="com_destino" class="form-label">Destino
                                 </label>
-                                <input type="text" class="form-control" id="perso_nombre" name="perso_nombre" 
-                                       placeholder="Ingrese el nombre" required>
+                                <input type="text" class="form-control" id="com_destino" name="com_destino" 
+                                       placeholder="Ingrese el destino" required>
+                            </div>
+                        </div>
+
+                        <div class="row mb-3 justify-content-center">
+                            <div class="col-lg-12">
+                                <label for="com_descripcion" class="form-label">Descripción
+                                </label>
+                                <input type="text" class="form-control" id="com_descripcion" name="com_descripcion" 
+                                       placeholder="Ingrese la descripción de la comisión" required>
                             </div>
                         </div>
 
                         <div class="row mb-3 justify-content-center">
                             <div class="col-lg-6">
-                                <label for="perso_apellidos" class="form-label">Apellidos
+                                <label for="com_fech_inicio" class="form-label">Fecha de Inicio 
                                 </label>
-                                <input type="text" class="form-control" id="perso_apellidos" name="perso_apellidos" 
-                                       placeholder="Ingrese los apellidos" required>
+                                <input type="datetime-local" class="form-control" id="com_fech_inicio" name="com_fech_inicio" required>
                             </div>
                             <div class="col-lg-6">
-                                <label for="perso_unidad" class="form-label">Unidad
+                                <label for="com_fech_fin" class="form-label">Fecha de Fin 
                                 </label>
-                                <select class="form-select" name="perso_unidad" id="perso_unidad">
-                                    <option value="" selected disabled>Seleccione la unidad...</option>
-                                    <option value="Informatica">Informartica</option>
-                                    <option value="Transmisiones">Transmisiones</option>
-                                </select>
+                                <input type="datetime-local" class="form-control" id="com_fech_fin" name="com_fech_fin" required>
                             </div>
                         </div>
 
@@ -77,20 +89,20 @@
     </div>
 </div>
 
-<div class="row justify-content-center p-3" id="SeccionTablaPersonal" style="display:none;">
+<div class="row justify-content-center p-3" id="SeccionTablaComisiones" style="display:none;">
     <div class="col-lg-12">
         <div class="card custom-card shadow-lg" style="border-radius: 10px; border: 1px solid #007bff;">
             <div class="card-body p-3">
                 <div class="row mb-3">
                     <div class="col-12">
                         <h3 class="text-center text-primary">
-                            PERSONAL REGISTRADO
+                            COMISIONES REGISTRADAS
                         </h3>
                     </div>
                 </div>
 
                 <div class="table-responsive p-2">
-                    <table class="table table-striped table-hover table-bordered w-100 table-sm" id="TablePersonal">
+                    <table class="table table-striped table-hover table-bordered w-100 table-sm" id="TableComisiones">
                     </table>
                 </div>
             </div>
@@ -98,4 +110,4 @@
     </div>
 </div>
 
-<script src="<?= asset('build/js/personal/index.js') ?>"></script>
+<script src="<?= asset('build/js/comision/index.js') ?>"></script>

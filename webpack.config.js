@@ -12,6 +12,7 @@ module.exports = {
     'js/bienvenida/index' : './src/js/bienvenida/index.js',
     'js/asignacion/index' : './src/js/asignacion/index.js',
     'js/personal/index' : './src/js/personal/index.js',
+    'js/comision/index' : './src/js/comision/index.js',
   },
   output: {
     filename: '[name].js',

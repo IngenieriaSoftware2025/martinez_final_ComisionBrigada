@@ -1,115 +1,149 @@
-import Swal from "sweetalert2";
 import { validarFormulario } from '../funciones';
 import DataTable from "datatables.net-bs5";
 import { lenguaje } from "../lenguaje";
+import Swal from "sweetalert2";
 
-const FormPersonal = document.getElementById('FormPersonal');
+const FormComision = document.getElementById('FormComision');
 const BtnGuardar = document.getElementById('BtnGuardar');
 const BtnModificar = document.getElementById('BtnModificar');
 const BtnLimpiar = document.getElementById('BtnLimpiar');
 const BtnMostrarRegistros = document.getElementById('BtnMostrarRegistros');
-const SeccionTabla = document.getElementById('SeccionTablaPersonal');
-const perso_grado = document.getElementById('perso_grado');
-const perso_nombre = document.getElementById('perso_nombre');
-const perso_apellidos = document.getElementById('perso_apellidos');
-const perso_unidad = document.getElementById('perso_unidad');
+const SeccionTabla = document.getElementById('SeccionTablaComisiones');
+const com_usuario = document.getElementById('com_usuario');
+const com_destino = document.getElementById('com_destino');
+const com_descripcion = document.getElementById('com_descripcion');
+const com_fech_inicio = document.getElementById('com_fech_inicio');
+const com_fech_fin = document.getElementById('com_fech_fin');
 
 // Validaciones de campos obligatorios
-const ValidarGrado = () => {
-    const grado = perso_grado.value.trim();
+const ValidarUsuario = () => {
+    const usuario = com_usuario.value.trim();
     
-    if (grado.length < 2) {
-        perso_grado.classList.remove('is-valid');
-        perso_grado.classList.add('is-invalid');
-        return false;
-    } else if (grado.length > 50) {
-        perso_grado.classList.remove('is-valid');
-        perso_grado.classList.add('is-invalid');
+    if (usuario === '') {
+        com_usuario.classList.remove('is-valid');
+        com_usuario.classList.add('is-invalid');
         return false;
     } else {
-        perso_grado.classList.remove('is-invalid');
-        perso_grado.classList.add('is-valid');
+        com_usuario.classList.remove('is-invalid');
+        com_usuario.classList.add('is-valid');
         return true;
     }
 }
 
-const ValidarNombre = () => {
-    const nombre = perso_nombre.value.trim();
+const ValidarDestino = () => {
+    const destino = com_destino.value.trim();
     
-    if (nombre.length < 2) {
-        perso_nombre.classList.remove('is-valid');
-        perso_nombre.classList.add('is-invalid');
+    if (destino.length < 3) {
+        com_destino.classList.remove('is-valid');
+        com_destino.classList.add('is-invalid');
         return false;
-    } else if (nombre.length > 50) {
-        perso_nombre.classList.remove('is-valid');
-        perso_nombre.classList.add('is-invalid');
+    } else if (destino.length > 250) {
+        com_destino.classList.remove('is-valid');
+        com_destino.classList.add('is-invalid');
         return false;
     } else {
-        perso_nombre.classList.remove('is-invalid');
-        perso_nombre.classList.add('is-valid');
+        com_destino.classList.remove('is-invalid');
+        com_destino.classList.add('is-valid');
         return true;
     }
 }
 
-const ValidarApellidos = () => {
-    const apellidos = perso_apellidos.value.trim();
+const ValidarDescripcion = () => {
+    const descripcion = com_descripcion.value.trim();
     
-    if (apellidos.length < 2) {
-        perso_apellidos.classList.remove('is-valid');
-        perso_apellidos.classList.add('is-invalid');
+    if (descripcion.length < 10) {
+        com_descripcion.classList.remove('is-valid');
+        com_descripcion.classList.add('is-invalid');
         return false;
-    } else if (apellidos.length > 50) {
-        perso_apellidos.classList.remove('is-valid');
-        perso_apellidos.classList.add('is-invalid');
+    } else if (descripcion.length > 500) {
+        com_descripcion.classList.remove('is-valid');
+        com_descripcion.classList.add('is-invalid');
         return false;
     } else {
-        perso_apellidos.classList.remove('is-invalid');
-        perso_apellidos.classList.add('is-valid');
+        com_descripcion.classList.remove('is-invalid');
+        com_descripcion.classList.add('is-valid');
         return true;
     }
 }
 
-// Función ValidarUnidad actualizada para select
-const ValidarUnidad = () => {
-    const unidad = perso_unidad.value.trim();
-    
-    // Para select, validar que se haya seleccionado una opción
-    if (unidad === '') {
-        // Unidad es opcional, así que no es error si está vacía
-        perso_unidad.classList.remove('is-invalid', 'is-valid');
-        return true;
-    } else {
-        perso_unidad.classList.remove('is-invalid');
-        perso_unidad.classList.add('is-valid');
-        return true;
-    }
-}
 
 // Validación completa del formulario
 const ValidarFormularioCompleto = () => {
     let esValido = true;
     
-    if (!ValidarGrado()) esValido = false;
-    if (!ValidarNombre()) esValido = false;
-    if (!ValidarApellidos()) esValido = false;
-    if (!ValidarUnidad()) esValido = false;
+    if (!ValidarUsuario()) esValido = false;
+    if (!ValidarDestino()) esValido = false;
+    if (!ValidarDescripcion()) esValido = false;
+    //if (!ValidarFechaInicio()) esValido = false;
+    //if (!ValidarFechaFin()) esValido = false;
     
     return esValido;
 }
 
-const datatable = new DataTable('#TablePersonal', {
+const datatable = new DataTable('#TableComisiones', {
     dom: `<"row mt-3 justify-content-between" <"col" l> <"col" B> <"col-3" f>>t<"row mt-3 justify-content-between" <"col-md-3 d-flex align-items-center" i> <"col-md-8 d-flex justify-content-end" p>>`,
     language: lenguaje,
     data: [],
     columns: [
-        { title: 'No.', data: 'perso_id', render: (data, type, row, meta) => meta.row + 1 },
-        { title: 'Grado', data: 'perso_grado' },
-        { title: 'Nombre', data: 'perso_nombre' },
-        { title: 'Apellidos', data: 'perso_apellidos' },
+        { title: 'No.', data: 'com_id', render: (data, type, row, meta) => meta.row + 1 },
+        { title: 'Personal', data: 'personal_completo' },
         { title: 'Unidad', data: 'perso_unidad', render: (data) => data || 'No asignada' },
+        { title: 'Destino', data: 'com_destino' },
+        { title: 'Descripción', data: 'com_descripcion' },
+        { 
+            title: 'Fecha Inicio', 
+            data: 'com_fech_inicio',
+            render: (data) => {
+                if (data) {
+                    const fecha = new Date(data);
+                    return fecha.toLocaleString('es-ES', {
+                        year: 'numeric',
+                        month: '2-digit',
+                        day: '2-digit',
+                        hour: '2-digit',
+                        minute: '2-digit'
+                    });
+                }
+                return '';
+            }
+        },
+        { 
+            title: 'Fecha Fin', 
+            data: 'com_fech_fin',
+            render: (data) => {
+                if (data) {
+                    const fecha = new Date(data);
+                    return fecha.toLocaleString('es-ES', {
+                        year: 'numeric',
+                        month: '2-digit',
+                        day: '2-digit',
+                        hour: '2-digit',
+                        minute: '2-digit'
+                    });
+                }
+                return '';
+            }
+        },
+        {
+            title: 'Estado',
+            data: null,
+            render: (data, type, row) => {
+                const ahora = new Date();
+                const inicio = new Date(row.com_fecha_inicio);
+                const fin = new Date(row.com_fecha_fin);
+                
+                if (ahora < inicio) {
+                    return '<span class="badge bg-warning">Pendiente</span>';
+                } else if (ahora >= inicio && ahora <= fin) {
+                    return '<span class="badge bg-success">Activa</span>';
+                } else {
+                    return '<span class="badge bg-secondary">Finalizada</span>';
+                }
+            }
+        },
         {
             title: 'Acciones',
-            data: 'perso_id',
+            data: 'com_id',
             searchable: false,
             orderable: false,
             render: (data, type, row) => {
@@ -117,10 +151,11 @@ const datatable = new DataTable('#TablePersonal', {
                  <div class='d-flex justify-content-center'>
                      <button class='btn btn-warning modificar mx-1' 
                          data-id="${data}" 
-                         data-grado="${row.perso_grado}"  
-                         data-nombre="${row.perso_nombre}"  
-                         data-apellidos="${row.perso_apellidos}"  
-                         data-unidad="${row.perso_unidad || ''}">   
+                         data-usuario="${row.com_usuario}"  
+                         data-destino="${row.com_destino}"  
+                         data-descripcion="${row.com_descripcion}"  
+                         data-fech_inicio="${row.com_fech_inicio}"
+                         data-fech_fin="${row.com_fech_fin}">   
                          <i class='bi bi-pencil-square me-1'></i> Modificar
                      </button>
                      <button class='btn btn-danger eliminar mx-1' 
@@ -140,7 +175,7 @@ const MostrarRegistros = () => {
         BtnMostrarRegistros.innerHTML = '<i class="bi bi-eye-slash me-2"></i>Ocultar Registros';
         BtnMostrarRegistros.classList.remove('btn-info');
         BtnMostrarRegistros.classList.add('btn-warning');
-        BuscarPersonal(true);
+        BuscarComisiones(true);
     } else {
         SeccionTabla.style.display = 'none';
         BtnMostrarRegistros.innerHTML = '<i class="bi bi-eye me-2"></i>Mostrar Registros';
@@ -149,34 +184,32 @@ const MostrarRegistros = () => {
     }
 }
 
-// Función limpiarTodo actualizada para incluir form-select
 const limpiarTodo = () => {
-    FormPersonal.reset();
+    FormComision.reset();
     BtnGuardar.classList.remove('d-none');
     BtnModificar.classList.add('d-none');
-    // Incluir tanto form-control como form-select
-    FormPersonal.querySelectorAll('.form-control, .form-select').forEach(element => {
+    FormComision.querySelectorAll('.form-control, .form-select').forEach(element => {
         element.classList.remove('is-valid', 'is-invalid');
     });
 }
 
-const BuscarPersonal = async (mostrarMensaje = false) => {
-    const url = '/martinez_final_ComisionBrigada/personal/buscarAPI';
+const BuscarComisiones = async (mostrarMensaje = false) => {
+    const url = '/martinez_final_ComisionBrigada/comision/buscarAPI';
     const config = { method: 'GET' };
     try {
         const respuesta = await fetch(url, config);
         const datos = await respuesta.json();
         const { codigo, mensaje, data } = datos;
         if (codigo == 1) {
-            const personal = data || [];
+            const comisiones = data || [];
             datatable.clear().draw();
-            datatable.rows.add(personal).draw();
+            datatable.rows.add(comisiones).draw();
             if (mostrarMensaje) {
                 await Swal.fire({ 
                     position: "center", 
                     icon: "success", 
-                    title: "¡Personal cargado!", 
-                    text: `Se cargaron ${personal.length} registro(s) correctamente`, 
+                    title: "¡Comisiones cargadas!", 
+                    text: `Se cargaron ${comisiones.length} registro(s) correctamente`, 
                     showConfirmButton: false, 
                     timer: 1500 
                 });
@@ -202,19 +235,17 @@ const BuscarPersonal = async (mostrarMensaje = false) => {
     }
 }
 
-// Función GuardarPersonal actualizada
-const GuardarPersonal = async (event) => {
+const GuardarComision = async (event) => {
     event.preventDefault();
     BtnGuardar.disabled = true;
 
     // Verificar que todos los campos obligatorios estén llenos
-    // Nota: perso_unidad es opcional, así que no se incluye en la validación obligatoria
-    if (!perso_grado.value || !perso_nombre.value || !perso_apellidos.value) {
+    if (!com_usuario.value || !com_destino.value || !com_descripcion.value || !com_fech_inicio.value || !com_fech_fin.value) {
         Swal.fire({
             position: "center",
             icon: "info",
             title: "FORMULARIO INCOMPLETO",
-            text: "Debe llenar todos los campos obligatorios (Grado, Nombre, Apellidos)",
+            text: "Debe llenar todos los campos obligatorios",
             showConfirmButton: true,
         });
         BtnGuardar.disabled = false;
@@ -236,8 +267,8 @@ const GuardarPersonal = async (event) => {
         return;
     }
 
-    const body = new FormData(FormPersonal);
-    const url = '/martinez_final_ComisionBrigada/personal/guardarAPI';
+    const body = new FormData(FormComision);
+    const url = '/martinez_final_ComisionBrigada/comision/guardarAPI';
     const config = { method: 'POST', body };
     
     try {
@@ -249,13 +280,13 @@ const GuardarPersonal = async (event) => {
             await Swal.fire({ 
                 position: "center", 
                 icon: "success", 
-                title: "¡Personal guardado exitosamente!", 
+                title: "¡Comisión guardada exitosamente!", 
                 text: mensaje, 
                 showConfirmButton: false, 
                 timer: 2000 
             });
             limpiarTodo();
-            await BuscarPersonal(false);
+            await BuscarComisiones(false);
         } else {
             await Swal.fire({ 
                 position: "center", 
@@ -278,18 +309,17 @@ const GuardarPersonal = async (event) => {
     BtnGuardar.disabled = false;
 }
 
-// Función ModificarPersonal actualizada
-const ModificarPersonal = async (event) => {
+const ModificarComision = async (event) => {
     event.preventDefault();
     BtnModificar.disabled = true;
 
     // Verificar que todos los campos obligatorios estén llenos
-    if (!perso_grado.value || !perso_nombre.value || !perso_apellidos.value) {
+    if (!com_usuario.value || !com_destino.value || !com_descripcion.value || !com_fech_inicio.value || !com_fech_fin.value) {
         Swal.fire({
             position: "center",
             icon: "info",
             title: "FORMULARIO INCOMPLETO",
-            text: "Debe llenar todos los campos obligatorios (Grado, Nombre, Apellidos)",
+            text: "Debe llenar todos los campos obligatorios",
             showConfirmButton: true,
         });
         BtnModificar.disabled = false;
@@ -311,8 +341,8 @@ const ModificarPersonal = async (event) => {
         return;
     }
 
-    const body = new FormData(FormPersonal);
-    const url = '/martinez_final_ComisionBrigada/personal/modificarAPI';
+    const body = new FormData(FormComision);
+    const url = '/martinez_final_ComisionBrigada/comision/modificarAPI';
     const config = { method: 'POST', body };
     
     try {
@@ -324,13 +354,13 @@ const ModificarPersonal = async (event) => {
             await Swal.fire({ 
                 position: "center", 
                 icon: "success", 
-                title: "¡Personal modificado exitosamente!", 
+                title: "¡Comisión modificada exitosamente!", 
                 text: mensaje, 
                 showConfirmButton: false, 
                 timer: 2000 
             });
             limpiarTodo();
-            await BuscarPersonal(false);
+            await BuscarComisiones(false);
         } else {
             await Swal.fire({ 
                 position: "center", 
@@ -356,11 +386,19 @@ const ModificarPersonal = async (event) => {
 const llenarFormulario = (event) => {
     const datos = event.currentTarget.dataset;
     
-    document.getElementById('perso_id').value = datos.id;
-    document.getElementById('perso_grado').value = datos.grado;
-    document.getElementById('perso_nombre').value = datos.nombre;
-    document.getElementById('perso_apellidos').value = datos.apellidos;
-    document.getElementById('perso_unidad').value = datos.unidad;
+    document.getElementById('com_id').value = datos.id;
+    document.getElementById('com_destino').value = datos.destino;
+    document.getElementById('com_descripcion').value = datos.descripcion;
+    
+    // Convertir fechas al formato datetime-local
+    const fechaInicio = new Date(datos.fech_inicio);
+    const fechaFin = new Date(datos.fech_fin);
+    
+    document.getElementById('com_fech_inicio').value = fechaInicio.toISOString().slice(0, 16);
+    document.getElementById('com_fech_fin').value = fechaFin.toISOString().slice(0, 16);
+    
+    // Seleccionar el usuario directamente (ya está cargado en el select)
+    document.getElementById('com_usuario').value = datos.usuario;
     
     BtnGuardar.classList.add('d-none');
     BtnModificar.classList.remove('d-none');
@@ -368,14 +406,14 @@ const llenarFormulario = (event) => {
     window.scrollTo({ top: 0 });
 }
 
-const EliminarPersonal = async (e) => {
-    const idPersonal = e.currentTarget.dataset.id;
+const EliminarComision = async (e) => {
+    const idComision = e.currentTarget.dataset.id;
 
     const AlertaConfirmarEliminar = await Swal.fire({
         position: "center",
         icon: "warning",
         title: "¿Desea ejecutar esta acción?",
-        text: 'Esta completamente seguro que desea eliminar este registro',
+        text: 'Esta completamente seguro que desea eliminar esta comisión',
         showConfirmButton: true,
         confirmButtonText: 'Si, Eliminar',
         confirmButtonColor: '#d33',
@@ -384,7 +422,7 @@ const EliminarPersonal = async (e) => {
     });
 
     if (AlertaConfirmarEliminar.isConfirmed) {
-        const url = `/martinez_final_ComisionBrigada/personal/eliminarAPI?id=${idPersonal}`;
+        const url = `/martinez_final_ComisionBrigada/comision/eliminarAPI?id=${idComision}`;
         const config = { method: 'GET' };
 
         try {
@@ -400,7 +438,7 @@ const EliminarPersonal = async (e) => {
                     text: mensaje,
                     showConfirmButton: true,
                 });
-                BuscarPersonal(false);
+                BuscarComisiones(false);
             } else {
                 await Swal.fire({
                     position: "center",
@@ -424,17 +462,27 @@ const EliminarPersonal = async (e) => {
 }
 
 // Event Listeners
-BuscarPersonal(false);
-FormPersonal.addEventListener('submit', GuardarPersonal);
+BuscarComisiones(false);
+FormComision.addEventListener('submit', GuardarComision);
 BtnLimpiar.addEventListener('click', limpiarTodo);
-BtnModificar.addEventListener('click', ModificarPersonal);
+BtnModificar.addEventListener('click', ModificarComision);
 BtnMostrarRegistros.addEventListener('click', MostrarRegistros);
 datatable.on('click', '.modificar', llenarFormulario);
-datatable.on('click', '.eliminar', EliminarPersonal);
+datatable.on('click', '.eliminar', EliminarComision);
 
 // Validaciones en tiempo real
-perso_grado.addEventListener('blur', ValidarGrado);
-perso_nombre.addEventListener('blur', ValidarNombre);
-perso_apellidos.addEventListener('blur', ValidarApellidos);
+com_usuario.addEventListener('change', ValidarUsuario);
+com_destino.addEventListener('blur', ValidarDestino);
+com_descripcion.addEventListener('blur', ValidarDescripcion);
+com_fech_inicio.addEventListener('blur', ValidarFechaInicio);
+com_fech_fin.addEventListener('blur', ValidarFechaFin);
 
-perso_unidad.addEventListener('change', ValidarUnidad);
+// Validar fechas cuando cambien
+com_fech_inicio.addEventListener('change', () => {
+    ValidarFechaInicio();
+    if (com_fech_fin.value) {
+        ValidarFechaFin();
+    }
+});
+
+com_fech_fin.addEventListener('change', ValidarFechaFin);
