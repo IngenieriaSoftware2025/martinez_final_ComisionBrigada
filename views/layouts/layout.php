@@ -35,13 +35,13 @@
 
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            TIENDA
+            COMISIONES
           </a>
           <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="/proyecto_uno/clientes">CLIENTES</a></li>
-            <li><a class="dropdown-item" href="/proyecto_uno/ventas">VENTAS</a></li>
-            <li><a class="dropdown-item" href="/proyecto_uno/inventario">INVENTARIO</a></li>
-            <li><a class="dropdown-item" href="/proyecto_uno/marcas">MARCAS</a></li>
+            <li><a class="dropdown-item" href="/martinez_final_ComisionBrigada/personal">PERSONAL</a></li>
+            <li><a class="dropdown-item" href="/martinez_final_ComisionBrigada/comisiones">COMISIONES</a></li>
+            <li><a class="dropdown-item" href="/martinez_final_ComisionBrigada/estadisticas">ESTADISTICAS</a></li>
+            <li><a class="dropdown-item" href="/martinez_final_ComisionBrigada/mapa">MAPA</a></li>
           </ul>
         </li>
         </ul>

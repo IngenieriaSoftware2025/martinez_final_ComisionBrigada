@@ -1,6 +1,6 @@
 {
-    "name": "app/comisionbrigada",
-    "description": "proyecto de examen final",
+    "name": "proyecto/comision",
+    "description": "Iniciando proyecto",
     "type": "project",
     "config": {
         "platform-check": false

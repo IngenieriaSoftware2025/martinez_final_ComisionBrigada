@@ -11,7 +11,7 @@ class UsuariosController extends ActiveRecord
 {
     public function index(Router $router)
     {
-        $router->render('registro/index', [], 'layouts/layout');
+        $router->render('usuarios/index', [], 'layouts/layout');
     }
 
     public static function guardarAPI()

@@ -60,7 +60,7 @@ class Usuarios extends ActiveRecord
 
     public static function EliminarUsuarios($id)
     {
-        $sql = "UPDATE usuarios SET us_situacion = 0 WHERE us_id = $id";
+        $sql = "UPDATE amb_usuarios SET us_situacion = 0 WHERE us_id = $id";
         return self::SQL($sql);
     }
 
@@ -75,7 +75,7 @@ class Usuarios extends ActiveRecord
                 u.us_dpi,
                 u.us_correo,
                 u.us_foto
-              FROM usuarios u
+              FROM amb_usuarios u
               WHERE u.us_situacion = 1
               ORDER BY u.us_id DESC";
         

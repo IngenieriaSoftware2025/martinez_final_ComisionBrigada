@@ -1,7 +1,7 @@
 {
-  "name": "app-comisionbrigada",
+  "name": "proyecto-comision",
   "version": "1.0.0",
-  "description": "proyecto de examen final",
+  "description": "Aplicacion MVC demo",
   "main": "index.js",
   "scripts": {
     "build": "webpack",

@@ -5,6 +5,13 @@ module.exports = {
   entry: {
     'js/app' : './src/js/app.js',
     'js/inicio' : './src/js/inicio.js',
+    'js/login/index' : './src/js/login/index.js',
+    'js/usuarios/index' : './src/js/usuarios/index.js',
+    'js/aplicaciones/index' : './src/js/aplicaciones/index.js',
+    'js/permisos/index' : './src/js/permisos/index.js',
+    'js/bienvenida/index' : './src/js/bienvenida/index.js',
+    'js/asignacion/index' : './src/js/asignacion/index.js',
+    'js/personal/index' : './src/js/personal/index.js',
   },
   output: {
     filename: '[name].js',
