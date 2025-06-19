@@ -20,9 +20,9 @@ $router->setBaseURL('/' . $_ENV['APP_NAME']);
 
 //url's login
 $router->get('/', [LoginController::class, 'index']);
-$router->post('/API/login', [LoginController::class, 'login']);
-$router->get('/inicio', [LoginController::class,'inicio']);
-$router->get('/logout', [LoginController::class,'logout']); 
+$router->post('/login', [LoginController::class, 'login']);
+$router->get('/logout', [LoginController::class, 'logout']);
+$router->get('/inicio', [LoginController::class, 'inicio']);
 
 
 //url's registrar usuario

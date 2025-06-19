@@ -58,16 +58,11 @@ if (FormLogin) {
             formData.append('us_correo', correo);
             formData.append('us_contrasenia', contrasenia);
             
-            // Fetch con tu base URL
-            const response = await fetch('/martinez_final_ComisionBrigada/API/login', {
+            const response = await fetch('/martinez_final_ComisionBrigada/login', {
                 method: 'POST',
                 body: formData
             });
             
-            // Verificar si la respuesta es válida
-            if (!response.ok) {
-                throw new Error(`HTTP error! status: ${response.status}`);
-            }
             
             const result = await response.json();
             
@@ -77,8 +72,7 @@ if (FormLogin) {
                     title: '¡Bienvenido!',
                     text: result.mensaje,
                     timer: 2000,
-                    timerProgressBar: true,
-                    confirmButtonColor: '#28a745'
+                    timerProgressBar: false,
                 }).then(() => {
                     window.location.href = '/martinez_final_ComisionBrigada/inicio';
                 });

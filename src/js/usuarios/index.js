@@ -308,7 +308,6 @@ const limpiarTodo = () => {
 
 const BuscarUsuarios = async (mostrarMensaje = false) => {
     const url = '/martinez_final_ComisionBrigada/usuarios/buscarAPI';
-    console.log('URL completa:', window.location.origin + url);
     const config = { method: 'GET' };
     try {
         const respuesta = await fetch(url, config);
@@ -413,8 +412,23 @@ const ModificarUsuario = async (event) => {
     event.preventDefault();
     BtnModificar.disabled = true;
 
-    // Validar formulario 
-    if (!ValidarFormularioCompleto()) {
+    // Crear una validación específica para modificar (sin contraseñas)
+    const ValidarFormularioParaModificar = () => {
+        let esValido = true;
+        
+        // Validar solo campos obligatorios para modificación
+        if (!ValidarNombres()) esValido = false;
+        if (!ValidarApellidos()) esValido = false;
+        if (!ValidarCorreo()) esValido = false;
+        if (!ValidarTelefono()) esValido = false;
+        if (!ValidarDPI()) esValido = false;
+        
+        // NO validar contraseñas en modificación
+        return esValido;
+    }
+
+    // Validar formulario para modificar
+    if (!ValidarFormularioParaModificar()) {
         Swal.fire({
             position: "center",
             icon: "info",
@@ -423,7 +437,7 @@ const ModificarUsuario = async (event) => {
             showConfirmButton: true,
         });
         BtnModificar.disabled = false;
-        return;
+        return; 
     }
 
     const body = new FormData(FormUsuarios);
@@ -434,7 +448,7 @@ const ModificarUsuario = async (event) => {
         const respuesta = await fetch(url, config);
         const datos = await respuesta.json();
         const { codigo, mensaje } = datos;
-        
+        console.log(datos)
         if (codigo == 1) {
             await Swal.fire({ 
                 position: "center", 

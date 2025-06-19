@@ -22,7 +22,7 @@ class LoginController extends ActiveRecord
             $correo = htmlspecialchars($_POST['us_correo']);
             $password = htmlspecialchars($_POST['us_contrasenia']);
 
-            $queryExisteUser = "SELECT us_id, us_nombres, us_apellidos, us_correo, us_contrasenia FROM usuarios WHERE us_correo = '$correo' AND us_situacion = '1'";
+            $queryExisteUser = "SELECT us_id, us_nombres, us_apellidos, us_correo, us_contrasenia FROM amb_usuarios WHERE us_correo = '$correo' AND us_situacion = '1'";
 
             $ExisteUsuario = ActiveRecord::fetchArray($queryExisteUser);
 
@@ -84,7 +84,7 @@ class LoginController extends ActiveRecord
         exit;
     }
     
-    // Renderizar TU vista de bienvenida (no dashboard/index)
+    // Renderizar TU vista de bienvenida
     $router->render('bienvenida/index', [
         'usuario' => $_SESSION['user'],
         'nombres' => $_SESSION['us_nombres'],
