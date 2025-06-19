@@ -33,6 +33,7 @@
             <li><a class="dropdown-item" href="/martinez_final_ComisionBrigada/permiso">PERMISOS</a></li>
             <li><a class="dropdown-item" href="/martinez_final_ComisionBrigada/aplicacion">APLICACIONES</a></li>
             <li><a class="dropdown-item" href="/martinez_final_ComisionBrigada/asignacion">ASIG. PERMISO</a></li>
+            <li><a class="dropdown-item" href="/martinez_final_ComisionBrigada/rutas">RUTAS</a></li>
           </ul>
         </li>
 

@@ -39,6 +39,7 @@
                                 <i class="bi bi-box-arrow-in-right me-2"></i>Ingresar
                             </button>
                         </div>
+                        <small>adrian@mail.com, andrea@mail.com, angela@mail.com, constraseña para todos Adrian25620</small>
                     </form>
 
                 </div>
