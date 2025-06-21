@@ -11,11 +11,16 @@ class UsuariosController extends ActiveRecord
 {
     public function index(Router $router)
     {
+        isAuth();
+        hasPermission(['usuarios']);
+
         $router->render('usuarios/index', [], 'layouts/layout');
     }
 
     public static function guardarAPI()
     {
+        isAuthApi();
+        hasPermissionApi(['usuarios']);
         getHeadersApi();
 
         // Validación de nombres
@@ -179,7 +184,6 @@ class UsuariosController extends ActiveRecord
                 'codigo' => 1,
                 'mensaje' => 'Éxito, el usuario ha sido registrado correctamente'
             ]);
-
         } catch (Exception $e) {
             http_response_code(400);
             echo json_encode([
@@ -192,6 +196,8 @@ class UsuariosController extends ActiveRecord
 
     public static function buscarAPI()
     {
+        isAuthApi();
+        hasPermissionApi(['usuarios']);
         try {
             $usuarios = Usuarios::obtenerUsuarios();
 
@@ -209,7 +215,6 @@ class UsuariosController extends ActiveRecord
                 'mensaje' => 'Usuarios obtenidos correctamente',
                 'data' => $usuarios
             ]);
-
         } catch (Exception $e) {
             http_response_code(400);
             echo json_encode([
@@ -221,180 +226,183 @@ class UsuariosController extends ActiveRecord
     }
 
     public static function modificarAPI()
-{
-    getHeadersApi();
+    {
+        isAuthApi();
+        hasPermissionApi(['usuarios']);
+        getHeadersApi();
 
-  
 
-    if (!isset($_POST['us_id']) || empty($_POST['us_id'])) {
-        http_response_code(400);
-        echo json_encode([
-            'codigo' => 0,
-            'mensaje' => 'ID de usuario requerido para modificar'
-        ]);
-        exit;
-    }
 
-    $id = filter_var($_POST['us_id'], FILTER_SANITIZE_NUMBER_INT);
-    
-    if (!$id || $id <= 0) {
-        http_response_code(400);
-        echo json_encode([
-            'codigo' => 0,
-            'mensaje' => 'ID de usuario inválido'
-        ]);
-        exit;
-    }
-
-    // Validación de nombres
-    $_POST['us_nombres'] = htmlspecialchars($_POST['us_nombres']);
-    $cantidad_nombres = strlen($_POST['us_nombres']);
-
-    if ($cantidad_nombres < 2) {
-        http_response_code(400);
-        echo json_encode([
-            'codigo' => 0,
-            'mensaje' => 'La cantidad de caracteres de los nombres debe ser mayor a dos'
-        ]);
-        exit;
-    }
-
-    if ($cantidad_nombres > 100) {
-        http_response_code(400);
-        echo json_encode([
-            'codigo' => 0,
-            'mensaje' => 'Los nombres no pueden exceder 100 caracteres'
-        ]);
-        exit;
-    }
-
-    // Validación de apellidos
-    $_POST['us_apellidos'] = htmlspecialchars($_POST['us_apellidos']);
-    $cantidad_apellidos = strlen($_POST['us_apellidos']);
-
-    if ($cantidad_apellidos < 2) {
-        http_response_code(400);
-        echo json_encode([
-            'codigo' => 0,
-            'mensaje' => 'La cantidad de caracteres de los apellidos debe ser mayor a dos'
-        ]);
-        exit;
-    }
-
-    if ($cantidad_apellidos > 100) {
-        http_response_code(400);
-        echo json_encode([
-            'codigo' => 0,
-            'mensaje' => 'Los apellidos no pueden exceder 100 caracteres'
-        ]);
-        exit;
-    }
-
-    // Validación de teléfono
-    $_POST['us_telefono'] = filter_var($_POST['us_telefono'], FILTER_VALIDATE_INT);
-
-    if (strlen($_POST['us_telefono']) != 8) {
-        http_response_code(400);
-        echo json_encode([
-            'codigo' => 0,
-            'mensaje' => 'La cantidad de dígitos del teléfono debe ser igual a 8'
-        ]);
-        exit;
-    }
-
-    // Validación de DPI
-    $_POST['us_dpi'] = filter_var($_POST['us_dpi'], FILTER_SANITIZE_NUMBER_INT);
-
-    if (strlen($_POST['us_dpi']) != 13) {
-        http_response_code(400);
-        echo json_encode([
-            'codigo' => 0,
-            'mensaje' => 'El DPI debe tener exactamente 13 dígitos'
-        ]);
-        exit;
-    }
-
-    // Validación de dirección - VERIFICAR SI EXISTE
-    if (!isset($_POST['us_direccion'])) {
-        $_POST['us_direccion'] = ''; // Valor por defecto
-    } else {
-        $_POST['us_direccion'] = htmlspecialchars($_POST['us_direccion']);
-        
-        if (strlen($_POST['us_direccion']) < 5) {
+        if (!isset($_POST['us_id']) || empty($_POST['us_id'])) {
             http_response_code(400);
             echo json_encode([
                 'codigo' => 0,
-                'mensaje' => 'La dirección debe tener al menos 5 caracteres'
+                'mensaje' => 'ID de usuario requerido para modificar'
             ]);
             exit;
         }
-    }
 
-    // Validación de correo
-    $_POST['us_correo'] = filter_var($_POST['us_correo'], FILTER_SANITIZE_EMAIL);
+        $id = filter_var($_POST['us_id'], FILTER_SANITIZE_NUMBER_INT);
 
-    if (!filter_var($_POST['us_correo'], FILTER_VALIDATE_EMAIL)) {
-        http_response_code(400);
-        echo json_encode([
-            'codigo' => 0,
-            'mensaje' => 'El correo electrónico ingresado es inválido'
-        ]);
-        exit;
-    }
-
-   
-    try {
-        $data = Usuarios::find($id);
-    
-        if (!$data) {
-            http_response_code(404);
+        if (!$id || $id <= 0) {
+            http_response_code(400);
             echo json_encode([
                 'codigo' => 0,
-                'mensaje' => 'Usuario no encontrado'
+                'mensaje' => 'ID de usuario inválido'
             ]);
             exit;
         }
 
-        // Procesar la fotografía solo si viene nueva
-        $nuevaFoto = self::procesarFotografia();
-        if (!empty($nuevaFoto)) {
-            $_POST['us_foto'] = $nuevaFoto;
-        } else {
-            $_POST['us_foto'] = $data['us_foto']; // Conserva la foto anterior
+        // Validación de nombres
+        $_POST['us_nombres'] = htmlspecialchars($_POST['us_nombres']);
+        $cantidad_nombres = strlen($_POST['us_nombres']);
+
+        if ($cantidad_nombres < 2) {
+            http_response_code(400);
+            echo json_encode([
+                'codigo' => 0,
+                'mensaje' => 'La cantidad de caracteres de los nombres debe ser mayor a dos'
+            ]);
+            exit;
         }
 
-        $data->sincronizar([
-            'us_nombres' => ucwords(strtolower(trim($_POST['us_nombres']))),
-            'us_apellidos' => ucwords(strtolower(trim($_POST['us_apellidos']))),
-            'us_telefono' => $_POST['us_telefono'],
-            'us_direccion' => trim($_POST['us_direccion']),
-            'us_dpi' => $_POST['us_dpi'],
-            'us_correo' => $_POST['us_correo'],
-            'us_foto' => $_POST['us_foto'],
-            'us_situacion' => 1
-        ]);
+        if ($cantidad_nombres > 100) {
+            http_response_code(400);
+            echo json_encode([
+                'codigo' => 0,
+                'mensaje' => 'Los nombres no pueden exceder 100 caracteres'
+            ]);
+            exit;
+        }
 
-        $resultado = $data->actualizar();
+        // Validación de apellidos
+        $_POST['us_apellidos'] = htmlspecialchars($_POST['us_apellidos']);
+        $cantidad_apellidos = strlen($_POST['us_apellidos']);
 
-        http_response_code(200);
-        echo json_encode([
-            'codigo' => 1,
-            'mensaje' => 'La información del usuario ha sido modificada exitosamente'
-        ]);
+        if ($cantidad_apellidos < 2) {
+            http_response_code(400);
+            echo json_encode([
+                'codigo' => 0,
+                'mensaje' => 'La cantidad de caracteres de los apellidos debe ser mayor a dos'
+            ]);
+            exit;
+        }
 
-    } catch (Exception $e) {
-        http_response_code(400);
-        echo json_encode([
-            'codigo' => 0,
-            'mensaje' => 'Error al modificar usuario',
-            'detalle' => $e->getMessage(),
-        ]);
-        exit;
+        if ($cantidad_apellidos > 100) {
+            http_response_code(400);
+            echo json_encode([
+                'codigo' => 0,
+                'mensaje' => 'Los apellidos no pueden exceder 100 caracteres'
+            ]);
+            exit;
+        }
+
+        // Validación de teléfono
+        $_POST['us_telefono'] = filter_var($_POST['us_telefono'], FILTER_VALIDATE_INT);
+
+        if (strlen($_POST['us_telefono']) != 8) {
+            http_response_code(400);
+            echo json_encode([
+                'codigo' => 0,
+                'mensaje' => 'La cantidad de dígitos del teléfono debe ser igual a 8'
+            ]);
+            exit;
+        }
+
+        // Validación de DPI
+        $_POST['us_dpi'] = filter_var($_POST['us_dpi'], FILTER_SANITIZE_NUMBER_INT);
+
+        if (strlen($_POST['us_dpi']) != 13) {
+            http_response_code(400);
+            echo json_encode([
+                'codigo' => 0,
+                'mensaje' => 'El DPI debe tener exactamente 13 dígitos'
+            ]);
+            exit;
+        }
+
+        // Validación de dirección
+        if (!isset($_POST['us_direccion'])) {
+            $_POST['us_direccion'] = ''; // Valor por defecto
+        } else {
+            $_POST['us_direccion'] = htmlspecialchars($_POST['us_direccion']);
+
+            if (strlen($_POST['us_direccion']) < 5) {
+                http_response_code(400);
+                echo json_encode([
+                    'codigo' => 0,
+                    'mensaje' => 'La dirección debe tener al menos 5 caracteres'
+                ]);
+                exit;
+            }
+        }
+
+        // Validación de correo
+        $_POST['us_correo'] = filter_var($_POST['us_correo'], FILTER_SANITIZE_EMAIL);
+
+        if (!filter_var($_POST['us_correo'], FILTER_VALIDATE_EMAIL)) {
+            http_response_code(400);
+            echo json_encode([
+                'codigo' => 0,
+                'mensaje' => 'El correo electrónico ingresado es inválido'
+            ]);
+            exit;
+        }
+
+
+        try {
+            $data = Usuarios::find($id);
+
+            if (!$data) {
+                http_response_code(404);
+                echo json_encode([
+                    'codigo' => 0,
+                    'mensaje' => 'Usuario no encontrado'
+                ]);
+                exit;
+            }
+
+            // Procesar la fotografía solo si viene nueva
+            $nuevaFoto = self::procesarFotografia();
+            if (!empty($nuevaFoto)) {
+                $_POST['us_foto'] = $nuevaFoto;
+            } else {
+                $_POST['us_foto'] = $data['us_foto']; // Conserva la foto anterior
+            }
+
+            $data->sincronizar([
+                'us_nombres' => ucwords(strtolower(trim($_POST['us_nombres']))),
+                'us_apellidos' => ucwords(strtolower(trim($_POST['us_apellidos']))),
+                'us_telefono' => $_POST['us_telefono'],
+                'us_direccion' => trim($_POST['us_direccion']),
+                'us_dpi' => $_POST['us_dpi'],
+                'us_correo' => $_POST['us_correo'],
+                'us_foto' => $_POST['us_foto'],
+                'us_situacion' => 1
+            ]);
+
+            $resultado = $data->actualizar();
+
+            http_response_code(200);
+            echo json_encode([
+                'codigo' => 1,
+                'mensaje' => 'La información del usuario ha sido modificada exitosamente'
+            ]);
+        } catch (Exception $e) {
+            http_response_code(400);
+            echo json_encode([
+                'codigo' => 0,
+                'mensaje' => 'Error al modificar usuario',
+                'detalle' => $e->getMessage(),
+            ]);
+            exit;
+        }
     }
-}
 
     public static function EliminarAPI()
     {
+        isAuthApi();
+        hasPermissionApi(['usuarios']);
         try {
             $id = filter_var($_GET['id'], FILTER_SANITIZE_NUMBER_INT);
 
@@ -405,7 +413,6 @@ class UsuariosController extends ActiveRecord
                 'codigo' => 1,
                 'mensaje' => 'El registro ha sido eliminado correctamente'
             ]);
-
         } catch (Exception $e) {
             http_response_code(400);
             echo json_encode([

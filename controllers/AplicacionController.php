@@ -11,11 +11,16 @@ class AplicacionController extends ActiveRecord
 {
     public function index(Router $router)
     {
+        isAuth();
+        hasPermission(['aplicaciones']);
+
         $router->render('aplicaciones/index', [], 'layouts/layout');
     }
 
     public static function guardarAPI()
     {
+        isAuthApi();
+        hasPermissionApi(['aplicaciones']);
         getHeadersApi();
 
         $_POST['ap_nombre_lg'] = htmlspecialchars($_POST['ap_nombre_lg']);
@@ -133,6 +138,8 @@ class AplicacionController extends ActiveRecord
 
     public static function buscarAPI()
     {
+        isAuthApi();
+        hasPermissionApi(['aplicaciones']);
         try {
             $sql = "SELECT * FROM amb_aplicacion WHERE ap_situacion = 1 ORDER BY ap_fecha_creacion DESC";
             $data = self::fetchArray($sql);
@@ -155,6 +162,8 @@ class AplicacionController extends ActiveRecord
 
     public static function modificarAPI()
     {
+        isAuthApi();
+        hasPermissionApi(['aplicaciones']);
         getHeadersApi();
 
         $id = $_POST['ap_id'];
@@ -272,6 +281,8 @@ class AplicacionController extends ActiveRecord
 
     public static function eliminarAPI()
     {
+        isAuthApi();
+        hasPermissionApi(['aplicaciones']);
         try {
             $id = filter_var($_GET['id'], FILTER_SANITIZE_NUMBER_INT);
 

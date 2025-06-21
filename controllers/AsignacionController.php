@@ -14,11 +14,13 @@ class AsignacionController extends ActiveRecord
 {
     public function index(Router $router)
     {
-        // Obtener datos para los selects
+        isAuth();
+        hasPermission(['asignaciones']);
+
         $usuarios = Usuarios::all();
         $aplicaciones = Aplicacion::all();
         $permisos = Permisos::all();
-        
+
         $router->render('asignacion/index', [
             'usuarios' => $usuarios,
             'aplicaciones' => $aplicaciones,
@@ -28,6 +30,8 @@ class AsignacionController extends ActiveRecord
 
     public static function guardarAPI()
     {
+        isAuthApi();
+        hasPermissionApi(['asignaciones']);
         getHeadersApi();
 
         // Validar usuario
@@ -134,6 +138,8 @@ class AsignacionController extends ActiveRecord
 
     public static function buscarAPI()
     {
+        isAuthApi();
+        hasPermissionApi(['asignaciones']);
         try {
             $data = Asignacion::obtenerAsignaciones();
 
@@ -155,6 +161,8 @@ class AsignacionController extends ActiveRecord
 
     public static function modificarAPI()
     {
+        isAuthApi();
+        hasPermissionApi(['asignaciones']);
         getHeadersApi();
 
         $id = $_POST['asig_id'];
@@ -260,6 +268,8 @@ class AsignacionController extends ActiveRecord
 
     public static function eliminarAPI()
     {
+        isAuthApi();
+        hasPermissionApi(['asignaciones']);
         try {
             $id = filter_var($_GET['id'], FILTER_SANITIZE_NUMBER_INT);
 
@@ -282,6 +292,8 @@ class AsignacionController extends ActiveRecord
 
     public static function obtenerPermisosPorAplicacionAPI()
     {
+        isAuthApi();
+        hasPermissionApi(['asignaciones']);
         try {
             $aplicacion_id = filter_var($_GET['aplicacion_id'], FILTER_SANITIZE_NUMBER_INT);
 
@@ -315,6 +327,8 @@ class AsignacionController extends ActiveRecord
 
     public static function finPermisoAPI()
     {
+        isAuthApi();
+        hasPermissionApi(['asignaciones']);
         try {
             $id = filter_var($_GET['id'], FILTER_SANITIZE_NUMBER_INT);
 

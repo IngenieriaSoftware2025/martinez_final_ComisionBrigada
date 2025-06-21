@@ -6,7 +6,7 @@ use Model\ActiveRecord;
 class Rutas extends ActiveRecord
 {
 
-    public static $tabla = 'rutas';
+    public static $tabla = 'amb_rutas';
     public static $columnasDB = [
 
         'rut_aplicacion',
@@ -33,7 +33,7 @@ class Rutas extends ActiveRecord
     }
 
     public static function EliminarRutas($id){
-        $sql = "UPDATE rutas SET rut_situacion = 0 WHERE rut_id = $id";
+        $sql = "UPDATE amb_rutas SET rut_situacion = 0 WHERE rut_id = $id";
         return self::SQL($sql);
     }
 

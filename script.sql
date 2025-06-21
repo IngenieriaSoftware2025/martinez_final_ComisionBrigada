@@ -134,3 +134,108 @@ INSERT INTO amb_comisiones (com_id,com_usuario,com_destino,com_descripcion,com_f
 GO
 INSERT INTO amb_comisiones (com_id,com_usuario,com_destino,com_descripcion,com_fech_inicio,com_fech_fin,com_situacion) VALUES(8,4,'Primera Brigada  Peten','Visita antenas','2025-06-20 19:44:00.0','2025-06-24 19:44:00.0','1')
 
+
+
+create table amb_rutas(
+    rut_id serial primary key,
+    rut_aplicacion varchar(50),
+    rut_ruta varchar(250),
+    rut_descripcion varchar(250),
+    rut_situacion char(1)
+);
+
+INSERT INTO amb_rutas (rut_id,rut_aplicacion,rut_ruta,rut_descripcion,rut_situacion) VALUES(1,'Login','/', 'Pertenece a login','1')
+GO
+INSERT INTO amb_rutas (rut_id,rut_aplicacion,rut_ruta,rut_descripcion,rut_situacion) VALUES(2,'Login','/login','Pertenece a login','1')
+GO
+INSERT INTO amb_rutas (rut_id,rut_aplicacion,rut_ruta,rut_descripcion,rut_situacion) VALUES(3,'Login','/logout','Pertenece a login','1')
+GO
+INSERT INTO amb_rutas (rut_id,rut_aplicacion,rut_ruta,rut_descripcion,rut_situacion) VALUES(4,'Login','/inicio','Pertenece a login','1')
+GO
+INSERT INTO amb_rutas (rut_id,rut_aplicacion,rut_ruta,rut_descripcion,rut_situacion) VALUES(5,'Registrar Usuario','/usuarios','Pertenece a registrar usuario','1')
+GO
+INSERT INTO amb_rutas (rut_id,rut_aplicacion,rut_ruta,rut_descripcion,rut_situacion) VALUES(6,'Registrar Usuario','/usuarios/modificarAPI','Pertenece a registrar usuario','1')
+GO
+INSERT INTO amb_rutas (rut_id,rut_aplicacion,rut_ruta,rut_descripcion,rut_situacion) VALUES(7,'Registrar Usuario','/usuarios/buscarAPI','Pertenece a registrar usuario','1')
+GO
+INSERT INTO amb_rutas (rut_id,rut_aplicacion,rut_ruta,rut_descripcion,rut_situacion) VALUES(8,'Registrar Usuario','/usuarios/eliminarAPI','Pertenece a registrar usuario','1')
+GO
+INSERT INTO amb_rutas (rut_id,rut_aplicacion,rut_ruta,rut_descripcion,rut_situacion) VALUES(9,'Registrar Usuario','/usuarios/guardarAPI','Pertenece a registrar usuario','1')
+GO
+INSERT INTO amb_rutas (rut_id,rut_aplicacion,rut_ruta,rut_descripcion,rut_situacion) VALUES(10,'Registrar Aplicaciones','/aplicacion','Pertenece a registrar aplicaciones','1')
+GO
+INSERT INTO amb_rutas (rut_id,rut_aplicacion,rut_ruta,rut_descripcion,rut_situacion) VALUES(11,'Registrar Aplicaciones','/aplicacion/modificarAPI','Pertenece a registrar aplicaciones','1')
+GO
+INSERT INTO amb_rutas (rut_id,rut_aplicacion,rut_ruta,rut_descripcion,rut_situacion) VALUES(12,'Registrar Aplicaciones','/aplicacion/buscarAPI','Pertenece a registrar aplicaciones','1')
+GO
+INSERT INTO amb_rutas (rut_id,rut_aplicacion,rut_ruta,rut_descripcion,rut_situacion) VALUES(13,'Registrar Aplicaciones','/aplicacion/eliminarAPI','Pertenece a registrar aplicaciones','1')
+GO
+INSERT INTO amb_rutas (rut_id,rut_aplicacion,rut_ruta,rut_descripcion,rut_situacion) VALUES(14,'Registrar Aplicaciones','/aplicacion/guardarAPI','Pertenece a registrar aplicaciones','1')
+GO
+INSERT INTO amb_rutas (rut_id,rut_aplicacion,rut_ruta,rut_descripcion,rut_situacion) VALUES(15,'Registrar Asignaciones','/asignacion','Pertenece a registrar asignaciones','1')
+GO
+INSERT INTO amb_rutas (rut_id,rut_aplicacion,rut_ruta,rut_descripcion,rut_situacion) VALUES(16,'Registrar Asignaciones','/asignacion/guardarAPI','Pertenece a registrar asignaciones','1')
+GO
+INSERT INTO amb_rutas (rut_id,rut_aplicacion,rut_ruta,rut_descripcion,rut_situacion) VALUES(17,'Registrar Asignaciones','/asignacion/buscarAPI','Pertenece a registrar asignaciones','1')
+GO
+INSERT INTO amb_rutas (rut_id,rut_aplicacion,rut_ruta,rut_descripcion,rut_situacion) VALUES(18,'Registrar Asignaciones','/asignacion/modificarAPI','Pertenece a registrar asignaciones','1')
+GO
+INSERT INTO amb_rutas (rut_id,rut_aplicacion,rut_ruta,rut_descripcion,rut_situacion) VALUES(19,'Registrar Asignaciones','/asignacion/eliminarAPI','Pertenece a registrar asignaciones','1')
+GO
+INSERT INTO amb_rutas (rut_id,rut_aplicacion,rut_ruta,rut_descripcion,rut_situacion) VALUES(20,'Registrar Asignaciones','/asignacion/finPermisoAPI','Pertenece a registrar asignaciones','1')
+GO
+INSERT INTO amb_rutas (rut_id,rut_aplicacion,rut_ruta,rut_descripcion,rut_situacion) VALUES(21,'Registrar Asignaciones','/asignacion/obtenerPermisosPorAplicacionAPI','Pertenece a registrar asignaciones','1')
+GO
+INSERT INTO amb_rutas (rut_id,rut_aplicacion,rut_ruta,rut_descripcion,rut_situacion) VALUES(22,'Registrar Permiso','/permiso','Pertenece a registrar permiso','1')
+GO
+INSERT INTO amb_rutas (rut_id,rut_aplicacion,rut_ruta,rut_descripcion,rut_situacion) VALUES(23,'Registrar Permiso','/permiso/modificarAPI','Pertenece a registrar permiso','1')
+GO
+INSERT INTO amb_rutas (rut_id,rut_aplicacion,rut_ruta,rut_descripcion,rut_situacion) VALUES(24,'Registrar Permiso','/permiso/buscarAPI','Pertenece a registrar permiso','1')
+GO
+INSERT INTO amb_rutas (rut_id,rut_aplicacion,rut_ruta,rut_descripcion,rut_situacion) VALUES(25,'Registrar Permiso','/permiso/eliminarAPI','Pertenece a registrar permiso','1')
+GO
+INSERT INTO amb_rutas (rut_id,rut_aplicacion,rut_ruta,rut_descripcion,rut_situacion) VALUES(26,'Registrar Permiso','/permiso/guardarAPI','Pertenece a registrar permiso','1')
+GO
+INSERT INTO amb_rutas (rut_id,rut_aplicacion,rut_ruta,rut_descripcion,rut_situacion) VALUES(27,'Registrar Personal','/personal','Pertenece a registrar personal','1')
+GO
+INSERT INTO amb_rutas (rut_id,rut_aplicacion,rut_ruta,rut_descripcion,rut_situacion) VALUES(28,'Registrar Personal','/personal/modificarAPI','Pertenece a registrar personal','1')
+GO
+INSERT INTO amb_rutas (rut_id,rut_aplicacion,rut_ruta,rut_descripcion,rut_situacion) VALUES(29,'Registrar Personal','/personal/buscarAPI','Pertenece a registrar personal','1')
+GO
+INSERT INTO amb_rutas (rut_id,rut_aplicacion,rut_ruta,rut_descripcion,rut_situacion) VALUES(30,'Registrar Personal','/personal/eliminarAPI','Pertenece a registrar personal','1')
+GO
+INSERT INTO amb_rutas (rut_id,rut_aplicacion,rut_ruta,rut_descripcion,rut_situacion) VALUES(31,'Registrar Personal','/personal/guardarAPI','Pertenece a registrar personal','1')
+GO
+INSERT INTO amb_rutas (rut_id,rut_aplicacion,rut_ruta,rut_descripcion,rut_situacion) VALUES(32,'Registrar Comision','/comision','Pertenece a registrar comision','1')
+GO
+INSERT INTO amb_rutas (rut_id,rut_aplicacion,rut_ruta,rut_descripcion,rut_situacion) VALUES(33,'Registrar Comision','/comision/modificarAPI','Pertenece a registrar comision','1')
+GO
+INSERT INTO amb_rutas (rut_id,rut_aplicacion,rut_ruta,rut_descripcion,rut_situacion) VALUES(34,'Registrar Comision','/comision/buscarAPI','Pertenece a registrar comision','1')
+GO
+INSERT INTO amb_rutas (rut_id,rut_aplicacion,rut_ruta,rut_descripcion,rut_situacion) VALUES(35,'Registrar Comision','/comision/eliminarAPI','Pertenece a registrar comision','1')
+GO
+INSERT INTO amb_rutas (rut_id,rut_aplicacion,rut_ruta,rut_descripcion,rut_situacion) VALUES(36,'Registrar Comision','/comision/guardarAPI','Pertenece a registrar comision','1')
+GO
+INSERT INTO amb_rutas (rut_id,rut_aplicacion,rut_ruta,rut_descripcion,rut_situacion) VALUES(37,'Registrar Comision','/comision/personalDisponibleAPI','Pertenece a registrar comision','1')
+GO
+INSERT INTO amb_rutas (rut_id,rut_aplicacion,rut_ruta,rut_descripcion,rut_situacion) VALUES(38,'Registrar Comision','/comision/comisionesActivasAPI','Pertenece a registrar comision','1')
+GO
+INSERT INTO amb_rutas (rut_id,rut_aplicacion,rut_ruta,rut_descripcion,rut_situacion) VALUES(39,'Estadisticas','/estadistica','Pertenece a estadisticas','1')
+GO
+INSERT INTO amb_rutas (rut_id,rut_aplicacion,rut_ruta,rut_descripcion,rut_situacion) VALUES(40,'Estadisticas','/estadistica/buscarComisionesPorFechaAPI','Pertenece a estadisticas','1')
+GO
+INSERT INTO amb_rutas (rut_id,rut_aplicacion,rut_ruta,rut_descripcion,rut_situacion) VALUES(41,'Estadisticas','/estadistica/buscarComisionesInformaticaAPI','Pertenece a estadisticas','1')
+GO
+INSERT INTO amb_rutas (rut_id,rut_aplicacion,rut_ruta,rut_descripcion,rut_situacion) VALUES(42,'Estadisticas','/estadistica/buscarComisionesTransmisionesAPI','Pertenece a estadisticas','1')
+GO
+INSERT INTO amb_rutas (rut_id,rut_aplicacion,rut_ruta,rut_descripcion,rut_situacion) VALUES(43,'Mapas','/mapas','Pertenece a mapas','1')
+GO
+INSERT INTO amb_rutas (rut_id,rut_aplicacion,rut_ruta,rut_descripcion,rut_situacion) VALUES(44,'Rutas','/rutas','Pertenece a rutas','1')
+GO
+INSERT INTO amb_rutas (rut_id,rut_aplicacion,rut_ruta,rut_descripcion,rut_situacion) VALUES(45,'Rutas','/rutas/guardarAPI','Pertenece a rutas','1')
+GO
+INSERT INTO amb_rutas (rut_id,rut_aplicacion,rut_ruta,rut_descripcion,rut_situacion) VALUES(46,'Rutas','/rutas/buscarAPI','Pertenece a rutas','1')
+GO
+INSERT INTO amb_rutas (rut_id,rut_aplicacion,rut_ruta,rut_descripcion,rut_situacion) VALUES(47,'Rutas','/rutas/modificarAPI','Pertenece a rutas','1')
+GO
+INSERT INTO amb_rutas (rut_id,rut_aplicacion,rut_ruta,rut_descripcion,rut_situacion) VALUES(48,'Rutas','/rutas/eliminarAPI','Pertenece a rutas','1')

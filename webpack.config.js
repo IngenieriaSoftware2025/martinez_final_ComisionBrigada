@@ -15,6 +15,8 @@ module.exports = {
     'js/comision/index' : './src/js/comision/index.js',
     'js/estadistica/index' : './src/js/estadistica/index.js',
     'js/mapas/index' : './src/js/mapas/index.js',
+    'js/rutas/index' : './src/js/rutas/index.js',
+    'js/historial/index' : './src/js/historial/index.js',
   },
   output: {
     filename: '[name].js',

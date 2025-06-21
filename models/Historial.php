@@ -3,7 +3,7 @@
 namespace Model;
 use Model\ActiveRecord;
 
-class HistorialAct extends ActiveRecord
+class Historial extends ActiveRecord
 {
 
     public static $tabla = 'historial_act';

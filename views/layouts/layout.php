@@ -14,45 +14,80 @@
 <body>
 <nav class="navbar navbar-expand-lg bg-dark navbar-dark">
     <div class="container-fluid">
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item me-4">
+                    <a class="nav-link active" aria-current="page" href="/martinez_final_ComisionBrigada/inicio">
+                        <i class="bi bi-house"> INICIO</i>
+                    </a>
+                </li>
+                
+                <?php 
+                session_start();
+                
+                if (isset($_SESSION['usuarios']) || isset($_SESSION['permisos']) || 
+                    isset($_SESSION['aplicaciones']) || isset($_SESSION['asignaciones'])): ?>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        ADMINISTRADOR
+                    </a>
+                    <ul class="dropdown-menu">
+                        <?php if (isset($_SESSION['usuarios'])): ?>
+                        <li><a class="dropdown-item" href="/martinez_final_ComisionBrigada/usuarios">USUARIOS</a></li>
+                        <?php endif; ?>
+                        
+                        <?php if (isset($_SESSION['permisos'])): ?>
+                        <li><a class="dropdown-item" href="/martinez_final_ComisionBrigada/permiso">PERMISOS</a></li>
+                        <?php endif; ?>
+                        
+                        <?php if (isset($_SESSION['aplicaciones'])): ?>
+                        <li><a class="dropdown-item" href="/martinez_final_ComisionBrigada/aplicacion">APLICACIONES</a></li>
+                        <?php endif; ?>
+                        
+                        <?php if (isset($_SESSION['asignaciones'])): ?>
+                        <li><a class="dropdown-item" href="/martinez_final_ComisionBrigada/asignacion">ASIG. PERMISO</a></li>
+                        <?php endif; ?>
+                        
+                        <?php if (isset($_SESSION['rutas'])): ?>
+                        <li><a class="dropdown-item" href="/martinez_final_ComisionBrigada/rutas">RUTAS</a></li>
+                        <?php endif; ?>
+                    </ul>
+                </li>
+                <?php endif; ?>
 
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav">
-          <li class="nav-item me-4">
-            <a class="nav-link active" aria-current="page" href="/martinez_final_ComisionBrigada/inicio"><i class="bi bi-house"> INICIO</i></a>
-          </li>
-          
-          <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            ADMINISTRADOR
-          </a>
-          <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="/martinez_final_ComisionBrigada/usuarios">USUARIOS</a></li>
-            <li><a class="dropdown-item" href="/martinez_final_ComisionBrigada/permiso">PERMISOS</a></li>
-            <li><a class="dropdown-item" href="/martinez_final_ComisionBrigada/aplicacion">APLICACIONES</a></li>
-            <li><a class="dropdown-item" href="/martinez_final_ComisionBrigada/asignacion">ASIG. PERMISO</a></li>
-            <li><a class="dropdown-item" href="/martinez_final_ComisionBrigada/rutas">RUTAS</a></li>
-          </ul>
-        </li>
-
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            COMISIONES
-          </a>
-          <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="/martinez_final_ComisionBrigada/personal">PERSONAL</a></li>
-            <li><a class="dropdown-item" href="/martinez_final_ComisionBrigada/comision">COMISIONES</a></li>
-            <li><a class="dropdown-item" href="/martinez_final_ComisionBrigada/estadistica">ESTADISTICAS</a></li>
-            <li><a class="dropdown-item" href="/martinez_final_ComisionBrigada/mapas">MAPA</a></li>
-          </ul>
-        </li>
-        </ul>
-        
-      </div>
+                <?php 
+                if (isset($_SESSION['personal']) || isset($_SESSION['comisiones']) || 
+                    isset($_SESSION['estadisticas']) || isset($_SESSION['mapas'])): ?>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        COMISIONES
+                    </a>
+                    <ul class="dropdown-menu">
+                        <?php if (isset($_SESSION['personal'])): ?>
+                        <li><a class="dropdown-item" href="/martinez_final_ComisionBrigada/personal">PERSONAL</a></li>
+                        <?php endif; ?>
+                        
+                        <?php if (isset($_SESSION['comisiones'])): ?>
+                        <li><a class="dropdown-item" href="/martinez_final_ComisionBrigada/comision">COMISIONES</a></li>
+                        <?php endif; ?>
+                        
+                        <?php if (isset($_SESSION['estadisticas'])): ?>
+                        <li><a class="dropdown-item" href="/martinez_final_ComisionBrigada/estadistica">ESTADISTICAS</a></li>
+                        <?php endif; ?>
+                        
+                        <?php if (isset($_SESSION['mapas'])): ?>
+                        <li><a class="dropdown-item" href="/martinez_final_ComisionBrigada/mapas">MAPA</a></li>
+                        <?php endif; ?>
+                    </ul>
+                </li>
+                <?php endif; ?>
+            </ul>
+        </div>
     </div>
-  </nav>
+</nav>
     <div class="progress fixed-bottom" style="height: 6px;">
         <div class="progress-bar progress-bar-animated bg-danger" id="bar" role="progressbar" aria-valuemin="0" aria-valuemax="100"></div>
     </div>

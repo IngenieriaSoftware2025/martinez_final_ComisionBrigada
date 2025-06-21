@@ -12,8 +12,10 @@ class PermisoController extends ActiveRecord
 {
     public function index(Router $router)
     {
+        isAuth();
+        hasPermission(['permisos']);
+
         $aplicaciones = Aplicacion::all();
-        
         $router->render('permisos/index', [
             'aplicaciones' => $aplicaciones
         ], 'layouts/layout');
@@ -21,6 +23,8 @@ class PermisoController extends ActiveRecord
 
     public static function guardarAPI()
     {
+        isAuthApi();
+        hasPermissionApi(['permisos']);
         getHeadersApi();
 
         // Validar aplicación
@@ -128,6 +132,8 @@ class PermisoController extends ActiveRecord
 
     public static function buscarAPI()
     {
+        isAuthApi();
+        hasPermissionApi(['permisos']);
         try {
             $sql = "SELECT p.*, a.ap_nombre_lg as aplicacion_nombre 
                     FROM amb_permisos p 
@@ -154,6 +160,8 @@ class PermisoController extends ActiveRecord
 
     public static function modificarAPI()
     {
+        isAuthApi();
+        hasPermissionApi(['permisos']);
         getHeadersApi();
 
         $id = $_POST['per_id'];
@@ -261,6 +269,8 @@ class PermisoController extends ActiveRecord
 
     public static function eliminarAPI()
     {
+        isAuthApi();
+        hasPermissionApi(['permisos']);
         try {
             $id = filter_var($_GET['id'], FILTER_SANITIZE_NUMBER_INT);
 

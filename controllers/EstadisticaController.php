@@ -10,12 +10,17 @@ class EstadisticaController extends ActiveRecord
 {
     public static function renderizarPagina(Router $router)
     {
+        isAuth();
+        hasPermission(['estadisticas']);
+
         $router->render('estadistica/index', []);
     }
 
     // comisiones por fechas
     public static function buscarComisionesPorFechaAPI()
     {
+        isAuthApi();
+        hasPermissionApi(['estadisticas']);
         try {
             $sql = "SELECT 
                     com_fech_inicio as fecha,
@@ -24,7 +29,7 @@ class EstadisticaController extends ActiveRecord
                     WHERE com_situacion = '1'
                     GROUP BY com_fech_inicio
                     ORDER BY com_fech_inicio DESC";
-            
+
             $data = self::fetchArray($sql);
 
             http_response_code(200);
@@ -46,6 +51,8 @@ class EstadisticaController extends ActiveRecord
     // comisiones de Informatica
     public static function buscarComisionesInformaticaAPI()
     {
+        isAuthApi();
+        hasPermissionApi(['estadisticas']);
         try {
             $sql = "SELECT 
                        c.com_destino,
@@ -56,7 +63,7 @@ class EstadisticaController extends ActiveRecord
                     AND p.perso_unidad LIKE 'Informatica'
                     GROUP BY c.com_destino
                     ORDER BY cantidad DESC";
-            
+
             $data = self::fetchArray($sql);
 
             http_response_code(200);
@@ -78,6 +85,8 @@ class EstadisticaController extends ActiveRecord
     // comisiones de Transmisiones
     public static function buscarComisionesTransmisionesAPI()
     {
+        isAuthApi();
+        hasPermissionApi(['estadisticas']);
         try {
             $sql = "SELECT 
                        c.com_destino,
@@ -88,7 +97,7 @@ class EstadisticaController extends ActiveRecord
                     AND p.perso_unidad LIKE 'Transmisiones'
                     GROUP BY c.com_destino
                     ORDER BY cantidad DESC";
-            
+
             $data = self::fetchArray($sql);
 
             http_response_code(200);

@@ -11,11 +11,16 @@ class PersonalController extends ActiveRecord
 {
     public function index(Router $router)
     {
+        isAuth();
+        hasPermission(['personal']); 
+
         $router->render('personal/index', [], 'layouts/layout');
     }
 
     public static function guardarAPI()
     {
+        isAuthApi();
+        hasPermissionApi(['personal']);
         getHeadersApi();
 
         // Validar grado
@@ -135,6 +140,8 @@ class PersonalController extends ActiveRecord
 
     public static function buscarAPI()
     {
+        isAuthApi();
+        hasPermissionApi(['personal']);
         try {
             $data = Personal::obtenerPersonal();
 
@@ -156,6 +163,8 @@ class PersonalController extends ActiveRecord
 
     public static function modificarAPI()
     {
+        isAuthApi();
+        hasPermissionApi(['personal']);
         getHeadersApi();
 
         $id = $_POST['perso_id'];
@@ -236,7 +245,7 @@ class PersonalController extends ActiveRecord
         // Verificar que no exista otro personal igual
         $sql = "SELECT perso_id FROM amb_personal WHERE perso_nombre = '{$_POST['perso_nombre']}' AND perso_apellidos = '{$_POST['perso_apellidos']}' AND perso_grado = '{$_POST['perso_grado']}' AND perso_id != $id AND perso_situacion = '1'";
         $existePersonal = self::fetchArray($sql);
-        
+
         if (!empty($existePersonal)) {
             http_response_code(400);
             echo json_encode([
@@ -273,6 +282,8 @@ class PersonalController extends ActiveRecord
 
     public static function eliminarAPI()
     {
+        isAuthApi();
+        hasPermissionApi(['personal']);
         try {
             $id = filter_var($_GET['id'], FILTER_SANITIZE_NUMBER_INT);
 
@@ -295,9 +306,11 @@ class PersonalController extends ActiveRecord
 
     public static function buscarPorGradoAPI()
     {
+        isAuthApi();
+        hasPermissionApi(['personal']);
         try {
             $grado = $_GET['grado'] ?? '';
-            
+
             if (empty($grado)) {
                 $data = Personal::obtenerPersonal();
             } else {
@@ -322,9 +335,11 @@ class PersonalController extends ActiveRecord
 
     public static function buscarPorUnidadAPI()
     {
+        isAuthApi();
+        hasPermissionApi(['personal']);
         try {
             $unidad = $_GET['unidad'] ?? '';
-            
+
             if (empty($unidad)) {
                 $data = Personal::obtenerPersonal();
             } else {
@@ -349,6 +364,8 @@ class PersonalController extends ActiveRecord
 
     public static function estadisticasAPI()
     {
+        isAuthApi();
+        hasPermissionApi(['personal']);
         try {
             $data = Personal::contarPorGrado();
 

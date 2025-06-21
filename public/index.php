@@ -12,6 +12,7 @@ use Controllers\PersonalController;
 use Controllers\UsuariosController;
 use Controllers\EstadisticaController;
 use Controllers\MapasController;
+use Controllers\RutasController;
 
 $router = new Router();
 $router->setBaseURL('/' . $_ENV['APP_NAME']);
@@ -93,6 +94,16 @@ $router->get('/estadistica/buscarComisionesTransmisionesAPI', [EstadisticaContro
 
 //url's de mapas
 $router->get('/mapas', [MapasController::class, 'renderizarPagina']);
+
+
+
+// url's de rutas
+$router->get('/rutas', [RutasController::class, 'index']);
+$router->post('/rutas/guardarAPI', [RutasController::class, 'guardarAPI']);
+$router->get('/rutas/buscarAPI', [RutasController::class, 'buscarAPI']);
+$router->post('/rutas/modificarAPI', [RutasController::class, 'modificarAPI']);
+$router->get('/rutas/eliminarAPI', [RutasController::class, 'eliminarAPI']);
+
 
 
 // Comprueba y valida las rutas, que existan y les asigna las funciones del Controlador

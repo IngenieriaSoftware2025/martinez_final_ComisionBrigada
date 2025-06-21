@@ -12,8 +12,10 @@ class ComisionController extends ActiveRecord
 {
     public function index(Router $router)
     {
+        isAuth();
+        hasPermission(['comisiones']);
 
-        $personal = Personal::all(); 
+        $personal = Personal::all();
         $router->render('comision/index', [
             'personal' => $personal
         ], 'layouts/layout');
@@ -21,6 +23,8 @@ class ComisionController extends ActiveRecord
 
     public static function guardarAPI()
     {
+        isAuthApi();
+        hasPermissionApi(['comisiones']);
         getHeadersApi();
 
         // Validar usuario
@@ -155,6 +159,8 @@ class ComisionController extends ActiveRecord
 
     public static function buscarAPI()
     {
+        isAuthApi();
+        hasPermissionApi(['comisiones']);
         try {
             $data = Comision::obtenerComisiones();
 
@@ -176,6 +182,8 @@ class ComisionController extends ActiveRecord
 
     public static function modificarAPI()
     {
+        isAuthApi();
+        hasPermissionApi(['comisiones']);
         getHeadersApi();
 
         $id = $_POST['com_id'];
@@ -272,6 +280,8 @@ class ComisionController extends ActiveRecord
 
     public static function eliminarAPI()
     {
+        isAuthApi();
+        hasPermissionApi(['comisiones']);
         try {
             $id = filter_var($_GET['id'], FILTER_SANITIZE_NUMBER_INT);
 
@@ -294,6 +304,8 @@ class ComisionController extends ActiveRecord
 
     public static function comisionesActivasAPI()
     {
+        isAuthApi();
+        hasPermissionApi(['comisiones']);
         try {
             $data = Comision::obtenerComisionesActivas();
 

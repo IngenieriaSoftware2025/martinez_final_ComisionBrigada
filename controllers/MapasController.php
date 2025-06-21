@@ -10,6 +10,9 @@ class MapasController extends ActiveRecord
 {
     public static function renderizarPagina(Router $router)
     {
+        isAuth();
+        hasPermission(['mapas']);
+        
         $router->render('mapas/index', []);
     }
 }

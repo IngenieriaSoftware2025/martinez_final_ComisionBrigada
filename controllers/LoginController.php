@@ -13,8 +13,7 @@ class LoginController extends ActiveRecord
         $router->render('pages/index', [], 'layouts/principal');
     }
 
-
-  public static function login()
+    public static function login()
     {
         getHeadersApi();
 
@@ -39,6 +38,49 @@ class LoginController extends ActiveRecord
                     $_SESSION['us_apellidos'] = $usuario['us_apellidos'];
                     $_SESSION['us_correo'] = $usuario['us_correo'];
                     $_SESSION['login'] = true;
+
+                    // Cargar permisos de la BD
+                    $sqlPermisos = "SELECT p.per_clave_permiso 
+                                  FROM amb_asig_permisos a 
+                                  INNER JOIN amb_permisos p ON a.asig_permisos = p.per_id 
+                                  WHERE a.asig_usuario = {$usuario['us_id']} 
+                                  AND a.asig_situacion = '1'";
+                    
+                    $permisos = self::fetchArray($sqlPermisos);
+                    
+                    // cargar permisos en sesion
+                    foreach ($permisos as $permiso) {
+                        $clave = strtolower($permiso['per_clave_permiso']);
+                        $_SESSION[$clave] = true;
+                    }
+
+                    
+                    // permisos ADMIN
+                    if (isset($_SESSION['admin'])) {
+                        $_SESSION['usuarios'] = true;
+                        $_SESSION['permisos'] = true;
+                        $_SESSION['aplicaciones'] = true;
+                        $_SESSION['asignaciones'] = true;
+                        $_SESSION['personal'] = true;
+                        $_SESSION['comisiones'] = true;
+                        $_SESSION['estadisticas'] = true;
+                        $_SESSION['mapas'] = true;
+                        $_SESSION['rutas'] = true;
+                    }
+                    
+                    // permisos BAT
+                    if (isset($_SESSION['bat'])) {
+                        $_SESSION['comisiones'] = true;
+                        $_SESSION['estadisticas'] = true;
+                        $_SESSION['mapas'] = true;
+                    }
+                    
+                    // permisios PER
+                    if (isset($_SESSION['per'])) {
+                        $_SESSION['personal'] = true;
+                        $_SESSION['estadisticas'] = true;
+                        $_SESSION['mapas'] = true;
+                    }
 
                     echo json_encode([
                         'codigo' => 1,
@@ -65,31 +107,45 @@ class LoginController extends ActiveRecord
         }
     }
 
- public static function logout()
-{
-    session_start();
-    session_destroy();
-    header('Location: /martinez_final_ComisionBrigada/'); // CON BASE URL
-    exit;
-}
-
-
-    public static function inicio(Router $router)
-{
-    session_start();
-    
-    // Verificar si está logueado
-    if (!isset($_SESSION['login']) || $_SESSION['login'] !== true) {
-        header('Location: /');
+    public static function logout()
+    {
+        session_start();
+        
+        // reinicia todas las variables de permisos
+        unset($_SESSION['admin']);
+        unset($_SESSION['per']); 
+        unset($_SESSION['bat']);
+        unset($_SESSION['usuarios']);
+        unset($_SESSION['permisos']);
+        unset($_SESSION['aplicaciones']);
+        unset($_SESSION['asignaciones']);
+        unset($_SESSION['personal']);
+        unset($_SESSION['comisiones']);
+        unset($_SESSION['estadisticas']);
+        unset($_SESSION['mapas']);
+        unset($_SESSION['rutas']);
+        
+        session_destroy();
+        header('Location: /martinez_final_ComisionBrigada/');
         exit;
     }
-    
-    // Renderizar TU vista de bienvenida
-    $router->render('bienvenida/index', [
-        'usuario' => $_SESSION['user'],
-        'nombres' => $_SESSION['us_nombres'],
-        'apellidos' => $_SESSION['us_apellidos'],
-        'correo' => $_SESSION['us_correo']
-    ]);
-}
+
+    public static function inicio(Router $router)
+    {
+        session_start();
+        
+        // verificar si esta logueado
+        if (!isset($_SESSION['login']) || $_SESSION['login'] !== true) {
+            header('Location: /martinez_final_ComisionBrigada/');
+            exit;
+        }
+        
+        // renderizar vista de bienvenida
+        $router->render('bienvenida/index', [
+            'usuario' => $_SESSION['user'],
+            'nombres' => $_SESSION['us_nombres'],
+            'apellidos' => $_SESSION['us_apellidos'],
+            'correo' => $_SESSION['us_correo']
+        ]);
+    }
 }
